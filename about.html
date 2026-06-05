@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Man Series — Our Story</title>
+  <meta name="description"
+    content="Man Series was born out of frustration. Learn our story — skincare designed for Indian men with clinically transparent actives. DoIT.C and DPIIT recognized.">
+  <meta name="author" content="Man Series Co.">
+  <link rel="icon" type="image/png" href="Product Images/fav icon/favicon.png?v=2">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Cart Drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Your Routine</h3>
+      <button class="close-cart-btn" id="closeCartBtn">&times;</button>
+    </div>
+    <div class="cart-shipping-bar">
+      <div class="shipping-text">
+        <span id="shippingMessage">Add ₹499 more for <span class="highlight">free shipping</span></span>
+        <span id="shippingPercent">0%</span>
+      </div>
+      <div class="shipping-progress">
+        <div class="shipping-progress-fill" id="shippingFill"></div>
+      </div>
+    </div>
+    <div class="cart-items" id="cartItemsContainer">
+      <div class="cart-empty-message">Your routine is empty.<br>Add a product to begin your journey.</div>
+    </div>
+    <div class="cart-footer">
+      <button class="cart-continue" id="continueShoppingBtn">← Continue Shopping</button>
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cartTotalValue">₹0</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn">
+        <span>Lock in Routine</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="toast" id="cartToast">
+    <div class="toast-dot"></div>
+    <span id="toastMessage">Product added to routine!</span>
+  </div>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="announcement-track">
+      <span class="announcement-item">Free Shipping Above ₹499 <span class="sep"></span></span>
+      <span class="announcement-item">Dermatologically Tested Actives <span class="sep"></span></span>
+      <span class="announcement-item">DoIT.C + DPIIT Recognized <span class="sep"></span></span>
+      <span class="announcement-item">Formulated for Indian Men <span class="sep"></span></span>
+      <span class="announcement-item">Clinical Transparency — No Fillers <span class="sep"></span></span>
+      <span class="announcement-item">Free Shipping Above ₹499 <span class="sep"></span></span>
+      <span class="announcement-item">Dermatologically Tested Actives <span class="sep"></span></span>
+      <span class="announcement-item">DoIT.C + DPIIT Recognized <span class="sep"></span></span>
+      <span class="announcement-item">Formulated for Indian Men <span class="sep"></span></span>
+      <span class="announcement-item">Clinical Transparency — No Fillers <span class="sep"></span></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="navbar navbar-light-page" id="navbar">
+    <div class="container navbar-container">
+      <button class="mobile-menu-btn" style="display: none;" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <a href="index.html" class="logo" aria-label="Man Series Home">
+        <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="series.html">Series</a></li>
+          <li><a href="byos.html">B.Y.O.S.</a></li>
+          <li><a href="about.html" class="nav-active">About</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="account.html" class="cart-trigger" aria-label="My Account" style="margin-right: 5px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
+        <button class="cart-trigger" id="cartTrigger" aria-label="Open Cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-count" id="cartBadgeCount">0</span>
+        </button>
+        <a href="series.html" class="btn btn-primary hide-on-mobile" style="padding: 0.55rem 1.3rem; font-size: 0.8rem;">Shop Now</a>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════
+       ABOUT SECTION
+       ═══════════════════════════════════════════════ -->
+  <section class="about" id="about" style="padding-top: 10rem;">
+    <div class="bg-watermark">MAN</div>
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content reveal">
+          <span class="eyebrow">OUR STORY</span>
+          <h2 style="font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 1rem; line-height: 1;">
+          <span class="line-normal">Built for the Indian Man.</span>
+          <span class="line-italic">By one.</span>
+          <span class="line-normal">No Compromise.</span>
+        </h2>
+          <p class="about-lead">Man Series was born out of frustration — rows of products making empty promises, with
+            hidden ingredients and prices that don't match the value.</p>
+          <p class="about-body">We set out to build a skincare line that respects the intelligence of men who want to
+            take care of their skin without the BS. Every formula is designed around the specific challenges of Indian
+            skin — heavy melanin, extreme heat, urban pollution, and intense UV exposure.</p>
+          <p class="about-body">Three products. Clinically transparent actives. One honest routine.</p>
+          <div class="about-stats reveal-stagger">
+            <div class="about-stat">
+              <div class="about-stat-num">3</div>
+              <div class="about-stat-label">Hero Products</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">8+</div>
+              <div class="about-stat-label">Active Ingredients</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">100%</div>
+              <div class="about-stat-label">Transparent Formulas</div>
+            </div>
+          </div>
+          <div class="about-badges">
+            <div class="about-badge-item">✦ DoIT.C Recognized</div>
+            <div class="about-badge-item">✦ DPIIT Registered</div>
+            <div class="about-badge-item">✦ Dermatologically Tested</div>
+            <div class="about-badge-item">✦ Made in India</div>
+          </div>
+        </div>
+        <div class="about-visual reveal">
+          <div class="about-poster-wrapper" style="width: 100%; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-hover); border: 1px solid var(--border-warm);">
+            <img src="Product Images/Poster/sstw763.png" alt="Man holding Man Series Face Wash" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/5; display: block; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          </div>
+          <div class="about-manifesto-block">
+            <p class="about-manifesto-quote">"We don't sell skincare.<br>We sell skin trust."</p>
+            <span class="about-manifesto-attr">— Man Series Co.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-statement reveal">
+        <h2>SKIN <span>MINIMALISM.</span></h2>
+        <p>Fewer products. Healthier skin. Formulated for the Indian man who demands transparency, science, and results.
+        </p>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="footer-logo"
+            style="height: 36px; margin-bottom: 1.5rem;">
+          <p>Clinically proven, active skincare simplified for Indian Men. Transparent packaging. Honest pricing.</p>
+          <div class="footer-manifesto">"WE TRUST MAN"</div>
+        </div>
+        <div class="footer-links">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="series.html">The Series</a></li>
+            <li><a href="byos.html">B.Y.O.S.</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Connect</h4>
+          <p><a href="mailto:support@manseries.in">support@manseries.in</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Man Series Co. All Rights Reserved.</p>
+        <p>Formulated for Indian Men · Made in India 🇮🇳</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

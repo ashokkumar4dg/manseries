@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B.Y.O.S. — Build Your Own Set | Man Series</title>
+  <meta name="description"
+    content="Build your own skincare set. Handpick from 3 clinical products, get bundle discounts up to 15% off. Custom routine for Indian men.">
+  <meta name="author" content="Man Series Co.">
+  <link rel="icon" type="image/png" href="Product Images/fav icon/favicon.png?v=2">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Cart Drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Your Routine</h3>
+      <button class="close-cart-btn" id="closeCartBtn">&times;</button>
+    </div>
+    <div class="cart-shipping-bar">
+      <div class="shipping-text">
+        <span id="shippingMessage">Add ₹499 more for <span class="highlight">free shipping</span></span>
+        <span id="shippingPercent">0%</span>
+      </div>
+      <div class="shipping-progress">
+        <div class="shipping-progress-fill" id="shippingFill"></div>
+      </div>
+    </div>
+    <div class="cart-items" id="cartItemsContainer">
+      <div class="cart-empty-message">Your routine is empty.<br>Add a product to begin your journey.</div>
+    </div>
+    <div class="cart-footer">
+      <button class="cart-continue" id="continueShoppingBtn">← Continue Shopping</button>
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cartTotalValue">₹0</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn">
+        <span>Lock in Routine</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="toast" id="cartToast">
+    <div class="toast-dot"></div>
+    <span id="toastMessage">Product added to routine!</span>
+  </div>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="announcement-track">
+      <span class="announcement-item">Free Shipping Above ₹499 <span class="sep"></span></span>
+      <span class="announcement-item">Dermatologically Tested Actives <span class="sep"></span></span>
+      <span class="announcement-item">DoIT.C + DPIIT Recognized <span class="sep"></span></span>
+      <span class="announcement-item">Formulated for Indian Men <span class="sep"></span></span>
+      <span class="announcement-item">Clinical Transparency — No Fillers <span class="sep"></span></span>
+      <span class="announcement-item">Free Shipping Above ₹499 <span class="sep"></span></span>
+      <span class="announcement-item">Dermatologically Tested Actives <span class="sep"></span></span>
+      <span class="announcement-item">DoIT.C + DPIIT Recognized <span class="sep"></span></span>
+      <span class="announcement-item">Formulated for Indian Men <span class="sep"></span></span>
+      <span class="announcement-item">Clinical Transparency — No Fillers <span class="sep"></span></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="navbar navbar-light-page" id="navbar">
+    <div class="container navbar-container">
+      <button class="mobile-menu-btn" style="display: none;" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <a href="index.html" class="logo" aria-label="Man Series Home">
+        <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="series.html">Series</a></li>
+          <li><a href="byos.html" class="nav-active">B.Y.O.S.</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="account.html" class="cart-trigger" aria-label="My Account" style="margin-right: 5px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
+        <button class="cart-trigger" id="cartTrigger" aria-label="Open Cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-count" id="cartBadgeCount">0</span>
+        </button>
+        <a href="series.html" class="btn btn-primary hide-on-mobile" style="padding: 0.55rem 1.3rem; font-size: 0.8rem;">Shop Now</a>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════
+       B.Y.O.S. — BUILD YOUR OWN SET
+       ═══════════════════════════════════════════════ -->
+  <section class="byos" id="byos" style="padding-top: 10rem;">
+    <div class="bg-watermark">BUILD</div>
+    <div class="container">
+      <div class="byos-header reveal">
+        <span class="eyebrow">CUSTOMISE YOUR ROUTINE</span>
+        <h2 style="font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 1rem; line-height: 1;">
+          <span class="line-normal">Build Your</span>
+          <span class="line-italic">Custom Routine.</span>
+          <span class="line-normal">Save 15%.</span>
+        </h2>
+        <p>Handpick the products that match your skin goals. Get a bundled discount when you choose 2 or more.</p>
+      </div>
+
+      <div class="byos-wrapper">
+        <!-- Step 1: Select Products -->
+        <div class="byos-step reveal">
+          <div class="byos-step-header">
+            <div class="step-num">01</div>
+            <div>
+              <h3>Choose Your Products</h3>
+              <p>Select the products that target your concerns</p>
+            </div>
+          </div>
+          <div class="byos-selector">
+            <div class="byos-product-tile" data-byos-id="fw" onclick="toggleByos(this)">
+              <div class="byos-tile-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg></div>
+              <img src="Product Images/Face wash/Transparent_Facewash.png?v=3" alt="Face Wash" class="byos-tile-img">
+              <div class="byos-tile-info">
+                <span>Multi-Active Face Wash</span>
+                <strong>₹249</strong>
+              </div>
+            </div>
+            <div class="byos-product-tile" data-byos-id="sr" onclick="toggleByos(this)">
+              <div class="byos-tile-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg></div>
+              <img src="Product Images/Serum/Transparent_Serum.png?v=3" alt="Serum" class="byos-tile-img">
+              <div class="byos-tile-info">
+                <span>Barrier Boost Serum</span>
+                <strong>₹349</strong>
+              </div>
+            </div>
+            <div class="byos-product-tile" data-byos-id="ss" onclick="toggleByos(this)">
+              <div class="byos-tile-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg></div>
+              <img src="Product Images/Sunscreen/Transparent_Sunscreen.png?v=3" alt="Sunscreen" class="byos-tile-img">
+              <div class="byos-tile-info">
+                <span>Ultra-Shield Sunscreen</span>
+                <strong>₹299</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Summary -->
+        <div class="byos-summary reveal">
+          <div class="byos-step-header">
+            <div class="step-num">02</div>
+            <div>
+              <h3>Your Custom Set</h3>
+              <p>Bundle savings applied automatically</p>
+            </div>
+          </div>
+          <div class="byos-summary-box" id="byosSummary">
+            <div class="byos-empty-state" id="byosEmpty">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              <p>Select at least one product to begin building your set.</p>
+            </div>
+            <div class="byos-selected-items" id="byosItems"></div>
+            <div class="byos-pricing" id="byosPricing" style="display:none">
+              <div class="byos-price-row">
+                <span>Subtotal</span>
+                <span id="byosSubtotal">₹0</span>
+              </div>
+              <div class="byos-price-row discount">
+                <span id="byosDiscountLabel">Bundle Discount</span>
+                <span id="byosDiscount" class="discount-val">−₹0</span>
+              </div>
+              <div class="byos-price-row total">
+                <span>You Pay</span>
+                <span id="byosTotal">₹0</span>
+              </div>
+            </div>
+            <button class="byos-cta" id="byosAddBtn" style="display:none" onclick="addByosToCart()">Add Set to Routine
+              →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-statement reveal">
+        <h2>SKIN <span>MINIMALISM.</span></h2>
+        <p>Fewer products. Healthier skin. Formulated for the Indian man who demands transparency, science, and results.
+        </p>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="footer-logo"
+            style="height: 36px; margin-bottom: 1.5rem;">
+          <p>Clinically proven, active skincare simplified for Indian Men. Transparent packaging. Honest pricing.</p>
+          <div class="footer-manifesto">"WE TRUST MAN"</div>
+        </div>
+        <div class="footer-links">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="series.html">The Series</a></li>
+            <li><a href="byos.html">B.Y.O.S.</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Connect</h4>
+          <p><a href="mailto:support@manseries.in">support@manseries.in</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Man Series Co. All Rights Reserved.</p>
+        <p>Formulated for Indian Men · Made in India 🇮🇳</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

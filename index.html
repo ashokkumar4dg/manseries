@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Man Series | Skin Minimalism — Formulated for Indian Men</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Science-backed, clinical men's skincare designed for Indian men. 3 multi-functional products. Transparent active ingredients. Affordable pricing.">
+  <meta name="keywords"
+    content="men skincare, indian men skin, face wash, face serum, sunscreen, clinical skincare, niacinamide, salicylic acid, man series">
+  <meta name="author" content="Man Series Co.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Man Series | Skin Minimalism">
+  <meta property="og:description" content="Fewer products. Healthier skin. Science-backed skincare for Indian men.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://manseries.in">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="Product Images/fav icon/favicon.png?v=2">
+
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Custom Cursor Glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Removed Slide-out Order Drawer -->
+
+  <!-- Toast Notification -->
+  <div class="toast" id="cartToast">
+    <div class="toast-dot"></div>
+    <span id="toastMessage">Product added to routine!</span>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════
+       ANNOUNCEMENT BAR
+       ═══════════════════════════════════════════════ -->
+  <div class="announcement-bar">
+    <div class="announcement-track">
+      <span class="announcement-item">Free Shipping Above ₹499 <span class="sep"></span></span>
+      <span class="announcement-item">Dermatologically Tested Actives <span class="sep"></span></span>
+      <span class="announcement-item">DoIT.C + DPIIT Recognized <span class="sep"></span></span>
+      <span class="announcement-item">Formulated for Indian Men <span class="sep"></span></span>
+      <span class="announcement-item">Clinical Transparency — No Fillers <span class="sep"></span></span>
+      <!-- Duplicate for seamless loop -->
+      <span class="announcement-item">Free Shipping Above ₹499 <span class="sep"></span></span>
+      <span class="announcement-item">Dermatologically Tested Actives <span class="sep"></span></span>
+      <span class="announcement-item">DoIT.C + DPIIT Recognized <span class="sep"></span></span>
+      <span class="announcement-item">Formulated for Indian Men <span class="sep"></span></span>
+      <span class="announcement-item">Clinical Transparency — No Fillers <span class="sep"></span></span>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════
+       FLOATING NAVIGATION
+       ═══════════════════════════════════════════════ -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar-container">
+      <button class="mobile-menu-btn" style="display: none;" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <a href="index.html" class="logo" aria-label="Man Series Home">
+        <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-active">Home</a></li>
+          <li><a href="series.html">Series</a></li>
+          <li><a href="byos.html">B.Y.O.S.</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="account.html" class="cart-trigger" aria-label="My Account" style="margin-right: 5px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
+        <button class="cart-trigger" id="cartTrigger" aria-label="Open Cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-count" id="cartBadgeCount">0</span>
+        </button>
+        <a href="series.html" class="btn btn-primary hide-on-mobile" style="padding: 0.55rem 1.3rem; font-size: 0.8rem;">Shop Now</a>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════
+       HERO SECTION — Dark Immersive
+       ═══════════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <video class="hero-bg-video" autoplay loop muted playsinline>
+      <source src="trailer%20video/video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+    <div class="bg-watermark">MINIMALISM</div>
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge hero-line">
+            <span class="bullet"></span>
+            ✦ Skin Minimalism Since 2025
+          </div>
+          <h1>
+            <span class="line-normal hero-line">Fewer Products.</span>
+            <span class="line-italic hero-line">Healthier Skin.</span>
+            <span class="line-normal hero-line">One Series.</span>
+          </h1>
+          <p class="hero-desc hero-line">
+            Science-backed multi-functional skincare formulated for Indian men.
+            3 products. Transparent actives. Infinite results.
+          </p>
+          <div class="hero-actions hero-line">
+            <a href="series.html" class="btn btn-primary">Shop The Series</a>
+            <a href="#reactor" class="btn btn-secondary">How It Works →</a>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+      <span>SCROLL</span>
+      <div class="chevron"></div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       INGREDIENT MARQUEE STRIP
+       ═══════════════════════════════════════════════ -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span class="marquee-item">SALICYLIC ACID 2.0% <span class="marquee-dot"></span></span>
+      <span class="marquee-item">NIACINAMIDE 10% <span class="marquee-dot"></span></span>
+      <span class="marquee-item">HYALURONIC ACID 1.5% <span class="marquee-dot"></span></span>
+      <span class="marquee-item">SPF 50+ PA++++ <span class="marquee-dot"></span></span>
+      <span class="marquee-item">ZINC PCA <span class="marquee-dot"></span></span>
+      <span class="marquee-item">CHAMOMILE EXTRACT <span class="marquee-dot"></span></span>
+      <span class="marquee-item">PRO-VITAMIN B5 <span class="marquee-dot"></span></span>
+      <span class="marquee-item">TITANIUM DIOXIDE <span class="marquee-dot"></span></span>
+      <!-- Duplicate for seamless loop -->
+      <span class="marquee-item">SALICYLIC ACID 2.0% <span class="marquee-dot"></span></span>
+      <span class="marquee-item">NIACINAMIDE 10% <span class="marquee-dot"></span></span>
+      <span class="marquee-item">HYALURONIC ACID 1.5% <span class="marquee-dot"></span></span>
+      <span class="marquee-item">SPF 50+ PA++++ <span class="marquee-dot"></span></span>
+      <span class="marquee-item">ZINC PCA <span class="marquee-dot"></span></span>
+      <span class="marquee-item">CHAMOMILE EXTRACT <span class="marquee-dot"></span></span>
+      <span class="marquee-item">PRO-VITAMIN B5 <span class="marquee-dot"></span></span>
+      <span class="marquee-item">TITANIUM DIOXIDE <span class="marquee-dot"></span></span>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════
+       PRODUCT CATALOG SECTION
+       ═══════════════════════════════════════════════ -->
+  <section class="catalog" id="catalog">
+    <div class="bg-watermark">THE ESSENTIALS</div>
+    <div class="container">
+      <div class="products-header reveal">
+        <span class="eyebrow">THE SERIES</span>
+        <h2>Three Products. One Complete Routine.</h2>
+        <p>Each formula is engineered specifically for Indian men's skin — targeting oil, pigmentation, and UV exposure.
+        </p>
+      </div>
+
+      <div class="products-grid reveal-stagger">
+
+        <!-- Product 1: Face Wash -->
+        <div class="product-card" data-id="fw">
+          <div>
+            <div class="product-img-box">
+              <img src="Product%20Images/Face%20wash/Transparent_Facewash.png?v=3" alt="Man Series Multi-Active Face Wash"
+                class="product-real-img">
+            </div>
+            <div class="product-info">
+              <span class="product-actives-pill">Salicylic Acid + Chamomile</span>
+              <h3>Multi-Active Face Wash</h3>
+              <ul class="product-bullets">
+                <li>Cleanses excessive oil &amp; tan buildup</li>
+                <li>Anti-pollution barrier protection</li>
+                <li>Removes hyperpigmentation</li>
+              </ul>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="price-container">
+              <span class="price-label">M.R.P.</span>
+              <span class="price-mrp">₹249</span>
+            </div>
+            <button class="add-to-cart-btn" data-id="fw" data-name="Multi-Active Face Wash" data-price="249"
+              data-img="fw" aria-label="Add to cart">+</button>
+          </div>
+        </div>
+
+        <!-- Product 2: Face Serum -->
+        <div class="product-card" data-id="sr">
+          <div>
+            <div class="product-img-box">
+              <img src="Product%20Images/Serum/Transparent_Serum.png?v=3" alt="Man Series Barrier Boost Serum"
+                class="product-real-img">
+            </div>
+            <div class="product-info">
+              <span class="product-actives-pill">10% Niacinamide + Zinc PCA</span>
+              <h3>Barrier Boost Serum</h3>
+              <ul class="product-bullets">
+                <li>Soothes active acne &amp; dark spots</li>
+                <li>Regulates sebum oil balance</li>
+                <li>Fortifies lipid barrier repair</li>
+              </ul>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="price-container">
+              <span class="price-label">M.R.P.</span>
+              <span class="price-mrp">₹349</span>
+            </div>
+            <button class="add-to-cart-btn" data-id="sr" data-name="Barrier Boost Serum" data-price="349" data-img="sr"
+              aria-label="Add to cart">+</button>
+          </div>
+        </div>
+
+        <!-- Product 3: Sunscreen -->
+        <div class="product-card" data-id="ss">
+          <div>
+            <div class="product-img-box">
+              <img src="Product%20Images/Sunscreen/Transparent_Sunscreen.png?v=3" alt="Man Series Matte Sun Shield"
+                class="product-real-img">
+            </div>
+            <div class="product-info">
+              <span class="product-actives-pill">SPF 50+ · PA++++ · Matte</span>
+              <h3>Ultra-Shield Matte Sunscreen</h3>
+              <ul class="product-bullets">
+                <li>Broad spectrum UVA/UVB defense</li>
+                <li>High sweat &amp; water resistance</li>
+                <li>Zero white-cast matte formula</li>
+              </ul>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="price-container">
+              <span class="price-label">M.R.P.</span>
+              <span class="price-mrp">₹299</span>
+            </div>
+            <button class="add-to-cart-btn" data-id="ss" data-name="Matte Sun Shield" data-price="299" data-img="ss"
+              aria-label="Add to cart">+</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       INGREDIENT REACTOR SECTION
+       ═══════════════════════════════════════════════ -->
+  <section class="reactor" id="reactor">
+    <div class="bg-watermark">MOLECULAR LAB</div>
+    <div class="container">
+      <div class="reactor-header reveal">
+        <h2>The Molecule Reactor</h2>
+        <p>Select your primary concern below to watch active ingredients align inside our molecular chamber to form your
+          required formula.</p>
+      </div>
+
+      <div class="reactor-wrapper reveal">
+        <div class="reactor-controls">
+          <h3>Formulate Your Solution</h3>
+          <p>Select a concern below to observe how our clinical active ingredients connect to heal target issues.</p>
+
+          <div class="concern-selector">
+            <button class="concern-btn" data-product="fw" data-concern="Excess Oil &amp; Tanning">
+              <span>Excess Oil &amp; Skin Tan</span>
+              <span class="concern-indicator"></span>
+            </button>
+            <button class="concern-btn" data-product="sr" data-concern="Acne Scars &amp; Dullness">
+              <span>Acne Marks &amp; Dehydration</span>
+              <span class="concern-indicator"></span>
+            </button>
+            <button class="concern-btn" data-product="ss" data-concern="Sunburn &amp; Digital Fatigue">
+              <span>Sun Exposure &amp; Blue Light</span>
+              <span class="concern-indicator"></span>
+            </button>
+          </div>
+
+          <div class="reactor-result" id="reactorResult">
+            <div class="result-icon" id="resultIcon">✓</div>
+            <div class="result-text">
+              <h4 id="resultTitle">Formula Activated</h4>
+              <p id="resultDesc">Active ingredients syncing...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reactor-display">
+          <canvas class="reactor-canvas" id="reactorCanvas"></canvas>
+          <div class="reactor-instructions" id="canvasInstructions">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            <h4>Reactor Idle</h4>
+            <p>Select a concern to trigger the reactor.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       CLINICAL SCIENCE SECTION
+       ═══════════════════════════════════════════════ -->
+  <section class="science" id="science">
+    <div class="bg-watermark">CLINICALLY PROVEN</div>
+    <div class="container">
+      <div class="science-header reveal">
+        <span class="eyebrow">THE ACTIVES</span>
+        <h2>Transparent Active Percentages</h2>
+        <p>No gimmicks. We list precisely what percentage goes into our formula — so you know what's healing your skin.
+        </p>
+      </div>
+
+      <div class="science-grid reveal-stagger">
+
+        <div class="science-card" data-count-target="2.0" data-count-suffix="%">
+          <div class="science-percent"><span class="color-fw counter-value">0</span>%</div>
+          <div class="science-bar">
+            <div class="science-bar-fill" style="--target-width: 40%"></div>
+          </div>
+          <h4>Salicylic Acid (BHA)</h4>
+          <p>Deeply penetrates lipid barriers to dissolve sebum blockages, clearing blackheads and calming breakouts.
+          </p>
+        </div>
+
+        <div class="science-card" data-count-target="10.0" data-count-suffix="%">
+          <div class="science-percent"><span class="color-sr counter-value">0</span>%</div>
+          <div class="science-bar">
+            <div class="science-bar-fill" style="--target-width: 80%"></div>
+          </div>
+          <h4>Niacinamide (Vitamin B3)</h4>
+          <p>Closes open pores, clears hyperpigmentation, reduces irritation, and stimulates ceramide renewal.</p>
+        </div>
+
+        <div class="science-card" data-count-target="1.5" data-count-suffix="%">
+          <div class="science-percent"><span class="color-sr counter-value">0</span>%</div>
+          <div class="science-bar">
+            <div class="science-bar-fill" style="--target-width: 30%"></div>
+          </div>
+          <h4>Hyaluronic Acid</h4>
+          <p>Attracts 1000x its weight in water, restoring instant plump skin glow and deep moisture retention.</p>
+        </div>
+
+        <div class="science-card" data-count-target="50" data-count-suffix="+" data-count-prefix="SPF ">
+          <div class="science-percent"><span class="color-ss counter-value">0</span>+</div>
+          <div class="science-bar">
+            <div class="science-bar-fill" style="--target-width: 95%"></div>
+          </div>
+          <h4>Broad-Spectrum Shield</h4>
+          <p>Micro-fine physical and chemical filters block 98% of harmful UVA and UVB solar rays without clogging
+            pores.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       TESTIMONIALS (MARQUEE)
+       ═══════════════════════════════════════════════ -->
+  <section class="testimonials">
+    <div class="container" style="text-align: center; margin-bottom: 3rem;">
+      <span class="eyebrow" style="color: var(--sage-dark); font-weight: 700; letter-spacing: 2px;">REAL RESULTS</span>
+      <h2 style="font-family: var(--font-display); font-size: 2.5rem; color: var(--charcoal); margin-top: 1rem;">Trusted by Indian Men</h2>
+    </div>
+    
+    <div class="testimonial-marquee">
+      <div class="testimonial-track">
+        <!-- Review 1 -->
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Finally a sunscreen that doesn't make me look like a ghost or sweat off immediately in the Mumbai heat. 10/10."</p>
+          <div class="reviewer">
+            <img src="Product Images/Avatars/avatar_1.png" alt="Rahul M.">
+            <span>Rahul M.</span>
+          </div>
+        </div>
+        <!-- Review 2 -->
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"The face wash actually cleared my stubborn tan within a week. My skin feels fresh, not tight and dry."</p>
+          <div class="reviewer">
+            <img src="Product Images/Avatars/avatar_2.png" alt="Vikram S.">
+            <span>Vikram S.</span>
+          </div>
+        </div>
+        <!-- Review 3 -->
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Minimalist, no-nonsense. The serum absorbs instantly. I've thrown out my 5-step routine for just these 3."</p>
+          <div class="reviewer">
+            <img src="Product Images/Avatars/avatar_3.png" alt="Arjun P.">
+            <span>Arjun P.</span>
+          </div>
+        </div>
+        
+        <!-- Duplicates for seamless loop -->
+        <!-- Review 1 -->
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Finally a sunscreen that doesn't make me look like a ghost or sweat off immediately in the Mumbai heat. 10/10."</p>
+          <div class="reviewer">
+            <img src="Product Images/Avatars/avatar_1.png" alt="Rahul M.">
+            <span>Rahul M.</span>
+          </div>
+        </div>
+        <!-- Review 2 -->
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"The face wash actually cleared my stubborn tan within a week. My skin feels fresh, not tight and dry."</p>
+          <div class="reviewer">
+            <img src="Product Images/Avatars/avatar_2.png" alt="Vikram S.">
+            <span>Vikram S.</span>
+          </div>
+        </div>
+        <!-- Review 3 -->
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Minimalist, no-nonsense. The serum absorbs instantly. I've thrown out my 5-step routine for just these 3."</p>
+          <div class="reviewer">
+            <img src="Product Images/Avatars/avatar_3.png" alt="Arjun P.">
+            <span>Arjun P.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER — Light Premium
+       ═══════════════════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-statement reveal">
+        <h2>SKIN <span>MINIMALISM.</span></h2>
+        <p>Fewer products. Healthier skin. Formulated for the Indian man who demands transparency, science, and results.
+        </p>
+      </div>
+
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="footer-logo"
+            style="height: 36px; margin-bottom: 1.5rem;">
+          <p>Clinically proven, active skincare simplified for Indian Men. Transparent packaging. Honest pricing.</p>
+          <div class="footer-manifesto">"WE TRUST MAN"</div>
+        </div>
+
+        <div class="footer-links">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="series.html">The Series</a></li>
+            <li><a href="byos.html">B.Y.O.S.</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-contact">
+          <h4>Connect</h4>
+          <p>Designed around the intense heat, pollution, and sweat of Indian cities. All actives are dermatologically
+            tested.</p>
+          <p><a href="mailto:support@manseries.in">support@manseries.in</a></p>
+          <div class="social-icons">
+            <a href="https://www.instagram.com/manseries.in" class="social-icon" aria-label="Instagram" target="_blank"
+              rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/manseries.in" class="social-icon" aria-label="Facebook" target="_blank"
+              rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/@manseries" class="social-icon" aria-label="YouTube" target="_blank"
+              rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z">
+                </path>
+                <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>
+              </svg>
+            </a>
+            <a href="https://www.pinterest.com/manseries" class="social-icon" aria-label="Pinterest" target="_blank"
+              rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M12 2C6.477 2 2 6.477 2 12c0 4.236 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.181-.78 1.172-4.97 1.172-4.97s-.299-.598-.299-1.482c0-1.388.806-2.428 1.808-2.428.853 0 1.267.641 1.267 1.408 0 .858-.546 2.14-.828 3.33-.236.995.499 1.806 1.476 1.806 1.772 0 3.137-1.868 3.137-4.561 0-2.387-1.715-4.052-4.163-4.052-2.838 0-4.5 2.126-4.5 4.326 0 .857.33 1.775.742 2.276a.3.3 0 0 1 .069.285c-.076.315-.244.995-.277 1.134-.044.183-.145.222-.335.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.966-.527-2.292-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Man Series Co. All Rights Reserved.</p>
+        <p>Formulated for Indian Men · Made in India 🇮🇳</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+
+</html>
