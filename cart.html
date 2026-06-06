@@ -166,6 +166,13 @@
     }
     
     @media (max-width: 900px) {
+      .cart-page-header h1 {
+        font-size: 2.5rem !important;
+      }
+      .nav-actions .btn-primary {
+        display: none !important;
+      }
+
       .cart-page-grid { grid-template-columns: 1fr; }
       .cart-page-summary { position: static; }
       .cart-page-item { flex-direction: column; text-align: center; gap: 1rem; }
@@ -177,10 +184,21 @@
   <!-- Navigation -->
   <header class="navbar navbar-light-page" id="navbar">
     <div class="container navbar-container">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Menu">
+        <svg class="icon-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
       <a href="index.html" class="logo" aria-label="Man Series Home">
         <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
       </a>
-      <nav>
+      <nav class="nav-menu" id="navMenu">
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="series.html">Series</a></li>
@@ -198,7 +216,7 @@
         <button class="cart-trigger" id="cartTrigger" aria-label="Open Cart" style="display:none;">
           <!-- Hidden on cart page, but logic relies on it -->
         </button>
-        <a href="series.html" class="btn btn-primary" style="padding: 0.55rem 1.3rem; font-size: 0.8rem;">Shop Now</a>
+        <a href="series.html" class="btn btn-primary hide-on-mobile" style="padding: 0.55rem 1.3rem; font-size: 0.8rem;">Shop Now</a>
       </div>
     </div>
   </header>
@@ -227,6 +245,7 @@
             <span>Shipping</span>
             <span id="cpShipping">₹0</span>
           </div>
+
           <div class="summary-row total">
             <span>Total</span>
             <span id="cpTotal">₹0</span>
@@ -324,9 +343,12 @@
       });
 
       document.getElementById('cpCheckoutBtn').addEventListener('click', () => {
-        alert('Locking in Routine! Redirecting to secure checkout...');
-        localStorage.removeItem('cart');
-        window.location.href = 'index.html';
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (isLoggedIn) {
+          window.location.href = 'payment.html';
+        } else {
+          window.location.href = 'account.html?redirect=cart';
+        }
       });
       
       renderCartPage();
