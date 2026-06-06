@@ -211,20 +211,22 @@
   <!-- Navigation -->
   <header class="navbar navbar-light-page" id="navbar">
     <div class="container navbar-container">
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Menu">
-        <svg class="icon-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-        <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-      <a href="index.html" class="logo" aria-label="Man Series Home">
-        <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
-      </a>
+      <div class="nav-brand">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Menu">
+          <svg class="icon-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <a href="index.html" class="logo" aria-label="Man Series Home">
+          <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
+        </a>
+      </div>
       <nav class="nav-menu" id="navMenu">
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
@@ -365,6 +367,9 @@
     </div>
   </main>
 
+  <!-- Dedicated Confetti Canvas -->
+  <canvas id="confettiCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999; pointer-events: none;"></canvas>
+
   <!-- Success Modal (Hidden by default) -->
   <div id="successModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;">
     <div style="background: var(--warm-white); padding: 4rem; border-radius: 32px; text-align: center; max-width: 500px; width: 90%; transform: translateY(20px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
@@ -377,6 +382,8 @@
     </div>
   </div>
 
+  <!-- Confetti script -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -445,19 +452,71 @@
       btn.style.pointerEvents = 'none';
       
       setTimeout(() => {
-        // Clear cart
+        // Clear cart and save order to history
+        const localCart = JSON.parse(localStorage.getItem('cart')) || [];
+        const orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
+        const totalText = document.getElementById('checkoutTotal').textContent.replace('₹', '');
+        
+        if (localCart.length > 0) {
+          orderHistory.unshift({
+            id: 'ORD-' + Math.floor(Math.random() * 900000 + 100000),
+            date: new Date().toLocaleDateString(),
+            total: totalText,
+            items: localCart
+          });
+          localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
+        }
+
         localStorage.removeItem('cart');
         const evt = new Event('cartUpdated');
         window.dispatchEvent(evt);
         
-        // Show success modal
-        const modal = document.getElementById('successModal');
-        modal.style.display = 'flex';
-        // Trigger reflow
-        void modal.offsetWidth; 
-        modal.style.opacity = '1';
-        modal.style.pointerEvents = 'auto';
-        modal.firstElementChild.style.transform = 'translateY(0)';
+        // Transform button to success state
+        btn.textContent = 'Payment Successful! ✓';
+        btn.style.background = '#4caf50';
+        btn.style.opacity = '1';
+        btn.style.transform = 'scale(1.05)';
+        
+        // Trigger massive celebration confetti on dedicated canvas
+        if (typeof window.confetti === 'function') {
+          var myCanvas = document.getElementById('confettiCanvas');
+          var myConfetti = window.confetti.create(myCanvas, {
+            resize: true,
+            useWorker: true
+          });
+          
+          var duration = 2000;
+          var end = Date.now() + duration;
+
+          (function frame() {
+            myConfetti({
+              particleCount: 5,
+              angle: 60,
+              spread: 55,
+              origin: { x: 0, y: 0.8 },
+              colors: ['#4caf50', '#a8c5b5', '#1a1d1c', '#f9f8f6']
+            });
+            myConfetti({
+              particleCount: 5,
+              angle: 120,
+              spread: 55,
+              origin: { x: 1, y: 0.8 },
+              colors: ['#4caf50', '#a8c5b5', '#1a1d1c', '#f9f8f6']
+            });
+
+            if (Date.now() < end) {
+              requestAnimationFrame(frame);
+            }
+          }());
+        } else {
+          console.error("Confetti library failed to load");
+        }
+
+        // Redirect to order history after 2.5 seconds
+        setTimeout(() => {
+          window.location.href = 'account.html?tab=orders';
+        }, 2500);
+
       }, 1500);
     }
   </script>
