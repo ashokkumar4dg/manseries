@@ -368,6 +368,12 @@ a {
 }
 
 /* ── Logo ── */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -2287,7 +2293,7 @@ footer {
     top: 100%;
     left: 0;
     width: 100%;
-    background: var(--cream);
+    background-color: var(--cream) !important;
     border-top: 1px solid rgba(0,0,0,0.05);
     border-bottom: 1px solid rgba(0,0,0,0.05);
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
