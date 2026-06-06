@@ -6,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Account | Man Series</title>
   <link rel="icon" type="image/png" href="Product Images/fav icon/favicon.png?v=2">
+  <script>
+    // Anti-flicker script to prevent login flash when already logged in
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      document.documentElement.classList.add('is-logged-in');
+    }
+  </script>
   <link rel="stylesheet" href="style.css">
   <style>
     .account-page-wrapper {
@@ -169,6 +175,19 @@
       padding-top: 0 !important;
     }
     
+    html.is-logged-in #navbar {
+      display: flex !important;
+    }
+    html.is-logged-in .account-page-wrapper {
+      padding-top: 10rem !important;
+    }
+    html.is-logged-in #loginSection {
+      display: none !important;
+    }
+    html.is-logged-in #accountSection {
+      display: block !important;
+    }
+    
     /* --- DASHBOARD SECTION --- */
     .account-page-header {
       margin-bottom: 3rem;
@@ -308,8 +327,7 @@
       .form-group input { padding: 1rem 1.2rem; font-size: 0.95rem; }
       .save-btn { padding: 1rem 2rem; font-size: 0.95rem; }
       .account-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .account-sidebar { flex-direction: row; overflow-x: auto; padding-bottom: 0.5rem; scrollbar-width: none; }
-      .account-sidebar::-webkit-scrollbar { display: none; }
+      .account-sidebar { flex-direction: row; flex-wrap: wrap; overflow-x: visible; padding-bottom: 0.5rem; }
       .account-nav-btn { white-space: nowrap; padding: 0.8rem 1.2rem; }
       .account-nav-btn:hover { padding-left: 1.2rem; }
     }
@@ -320,20 +338,22 @@
   <!-- Navigation -->
   <header class="navbar navbar-light-page" id="navbar">
     <div class="container navbar-container">
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Menu">
-        <svg class="icon-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-        <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-      <a href="index.html" class="logo" aria-label="Man Series Home">
-        <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
-      </a>
+      <div class="nav-brand">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Menu">
+          <svg class="icon-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <a href="index.html" class="logo" aria-label="Man Series Home">
+          <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
+        </a>
+      </div>
       <nav class="nav-menu" id="navMenu">
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
@@ -374,14 +394,14 @@
         <h2>Welcome Back</h2>
         <p>Enter your details to access your routine</p>
         
-        <form class="auth-form" onsubmit="event.preventDefault(); simulateLogin();">
+        <form class="auth-form" onsubmit="event.preventDefault(); validateAndLogin();">
           <div class="input-with-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            <input type="email" placeholder="E-mail" required>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <input type="text" id="loginId" placeholder="E-mail or 10-digit Phone" required>
           </div>
           <div class="input-with-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-            <input type="password" placeholder="Password" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
           </div>
           
           <button type="submit" class="sage-btn">Sign In</button>
@@ -420,28 +440,45 @@
         
         <div class="account-grid">
           <div class="account-sidebar">
-            <button class="account-nav-btn active">Profile Settings</button>
-            <button class="account-nav-btn">Order History</button>
-            <button class="account-nav-btn">Saved Addresses</button>
-            <button class="account-nav-btn" style="color: #ef4444; margin-top: auto;" onclick="simulateLogout()">Sign Out</button>
+            <button class="account-nav-btn active" id="btn-tab-profile" onclick="switchTab('profile')">Profile Settings</button>
+            <button class="account-nav-btn" id="btn-tab-orders" onclick="switchTab('orders')">Order History</button>
+            <button class="account-nav-btn" id="btn-tab-addresses" onclick="switchTab('addresses')">Saved Addresses</button>
+            <button class="account-nav-btn" style="color: #ef4444;" onclick="simulateLogout()">Sign Out</button>
           </div>
           
           <div class="account-content">
-            <h2>Profile Settings</h2>
-            <div class="profile-form">
-              <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" value="Indian Man">
+            <!-- Profile Tab -->
+            <div id="tab-profile" class="dashboard-tab">
+              <h2>Profile Settings</h2>
+              <div class="profile-form">
+                <div class="form-group">
+                  <label>Full Name</label>
+                  <input type="text" value="Indian Man">
+                </div>
+                <div class="form-group">
+                  <label>Email Address</label>
+                  <input type="email" value="user@example.com">
+                </div>
+                <div class="form-group">
+                  <label>Phone Number</label>
+                  <input type="tel" value="+91 98765 43210">
+                </div>
+                <button class="save-btn" onclick="alert('Profile Updated Successfully!')">Save Changes</button>
               </div>
-              <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" value="user@example.com">
+            </div>
+
+            <!-- Orders Tab -->
+            <div id="tab-orders" class="dashboard-tab" style="display: none;">
+              <h2>Order History</h2>
+              <div id="orderHistoryList">
+                <p style="color: var(--muted);">Loading orders...</p>
               </div>
-              <div class="form-group">
-                <label>Phone Number</label>
-                <input type="tel" value="+91 98765 43210">
-              </div>
-              <button class="save-btn" onclick="alert('Profile Updated Successfully!')">Save Changes</button>
+            </div>
+
+            <!-- Addresses Tab -->
+            <div id="tab-addresses" class="dashboard-tab" style="display: none;">
+              <h2>Saved Addresses</h2>
+              <p style="color: var(--muted);">No saved addresses yet.</p>
             </div>
           </div>
         </div>
@@ -461,6 +498,38 @@
       }
     });
 
+    // Login Validation
+    function validateAndLogin() {
+      const loginId = document.getElementById('loginId').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      // Check if it's a number (Phone login)
+      const isNumber = /^\d+$/.test(loginId);
+      
+      if (isNumber) {
+        if (loginId.length !== 10) {
+          alert("Phone number must be exactly 10 digits.");
+          return;
+        }
+      } else {
+        // Treat as email, must be @gmail.com
+        if (!loginId.toLowerCase().endsWith("@gmail.com")) {
+          alert("Only @gmail.com emails are allowed.");
+          return;
+        }
+      }
+
+      // Check password: At least 1 uppercase, 1 lowercase, 1 number, 1 symbol
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/;
+      if (!passwordRegex.test(password)) {
+        alert("Password must contain at least one uppercase letter, one lowercase letter, one number, and one symbol.");
+        return;
+      }
+
+      // If validation passes, simulate login
+      simulateLogin();
+    }
+
     // Authentication State Simulation
     function simulateLogin() {
       localStorage.setItem('isLoggedIn', 'true');
@@ -478,8 +547,68 @@
       window.scrollTo(0,0);
     }
     
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const tab = urlParams.get('tab');
+      if (tab) {
+        switchTab(tab);
+      }
+    });
+
+    // Tab Switching Logic
+    function switchTab(tabId) {
+      document.querySelectorAll('.dashboard-tab').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.account-nav-btn').forEach(el => el.classList.remove('active'));
+      
+      const targetTab = document.getElementById('tab-' + tabId);
+      const targetBtn = document.getElementById('btn-tab-' + tabId);
+      
+      if (targetTab) targetTab.style.display = 'block';
+      if (targetBtn) targetBtn.classList.add('active');
+
+      if (tabId === 'orders') {
+        renderOrderHistory();
+      }
+    }
+
+    // Render Order History
+    function renderOrderHistory() {
+      const list = document.getElementById('orderHistoryList');
+      const history = JSON.parse(localStorage.getItem('orderHistory')) || [];
+      
+      if (history.length === 0) {
+        list.innerHTML = '<p style="color: var(--muted);">You haven\\'t placed any orders yet.</p>';
+        return;
+      }
+
+      let html = '';
+      history.forEach(order => {
+        let itemsHtml = order.items.map(item => `${item.qty}x ${item.name}`).join(', ');
+        html += `
+          <div style="border: 1px solid var(--border-warm); padding: 1.5rem; border-radius: 16px; margin-bottom: 1.5rem; background: #fff;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; border-bottom: 1px solid var(--border-warm); padding-bottom: 1rem;">
+              <div>
+                <strong style="color: var(--charcoal); display: block; margin-bottom: 0.3rem;">Order ID: ${order.id}</strong>
+                <span style="font-size: 0.85rem; color: var(--muted);">${order.date}</span>
+              </div>
+              <div style="text-align: right;">
+                <strong style="color: var(--charcoal); font-size: 1.2rem; display: block;">₹${order.total}</strong>
+                <span style="display: inline-block; padding: 0.2rem 0.6rem; background: #e8f5e9; color: #4caf50; font-size: 0.75rem; border-radius: 100px; font-weight: 600; margin-top: 0.3rem;">Paid</span>
+              </div>
+            </div>
+            <div style="font-size: 0.95rem; color: var(--charcoal); line-height: 1.5;">
+              <strong style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted);">Items:</strong><br>
+              ${itemsHtml}
+            </div>
+          </div>
+        `;
+      });
+      list.innerHTML = html;
+    }
+
     function simulateLogout() {
       localStorage.removeItem('isLoggedIn');
+      document.documentElement.classList.remove('is-logged-in');
       document.body.classList.add('auth-page-active');
       document.getElementById('accountSection').style.display = 'none';
       document.getElementById('loginSection').style.display = 'block';
