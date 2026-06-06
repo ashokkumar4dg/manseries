@@ -552,13 +552,38 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btn.hasAttribute('data-cart-listener')) {
       btn.setAttribute('data-cart-listener', 'true');
       btn.addEventListener('click', () => {
-        const product = {
-          id: btn.dataset.id,
-          name: btn.dataset.name,
-          price: parseFloat(btn.dataset.price),
-          img: btn.dataset.img
-        };
-        addToCart(product);
+        if (btn.classList.contains('adding') || btn.classList.contains('added')) return;
+        
+        const originalText = btn.innerHTML;
+        const originalWidth = btn.offsetWidth;
+        
+        btn.style.width = originalWidth + 'px';
+        btn.classList.add('adding');
+        
+        setTimeout(() => {
+          btn.classList.remove('adding');
+          btn.classList.add('added');
+          
+          btn.innerHTML = `
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          `;
+          
+          const product = {
+            id: btn.dataset.id,
+            name: btn.dataset.name,
+            price: parseFloat(btn.dataset.price),
+            img: btn.dataset.img
+          };
+          addToCart(product);
+          
+          setTimeout(() => {
+            btn.classList.remove('added');
+            btn.innerHTML = originalText;
+            btn.style.width = '';
+          }, 2000);
+        }, 600);
       });
     }
   });
@@ -766,5 +791,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize cart badge on load
   updateCartUI();
+
+  // ==========================================
+  // 11. Mobile Navigation Menu Toggle
+  // ==========================================
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const navMenu = document.getElementById('navMenu');
+
+  const toggleMobileNav = () => {
+    if (navMenu) navMenu.classList.toggle('open');
+    if (mobileMenuBtn) mobileMenuBtn.classList.toggle('open');
+  };
+
+  if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileNav);
 
 });
