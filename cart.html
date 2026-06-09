@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Routine | Man Series</title>
-  <link rel="icon" type="image/png" href="Product Images/fav icon/favicon.png?v=2">
+  <link rel="icon" type="image/png" href="Images/fav icon/favicon.png?v=2">
   <link rel="stylesheet" href="style.css?v=1780760796">
   <style>
     .cart-page-wrapper {
@@ -66,7 +66,7 @@
           </svg>
         </button>
         <a href="index.html" class="logo" aria-label="Man Series Home">
-          <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
+          <img src="Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
         </a>
       </div>
       <nav class="nav-menu" id="navMenu">
@@ -78,6 +78,12 @@
         </ul>
       </nav>
       <div class="nav-actions">
+        <button class="search-trigger" id="searchTrigger" aria-label="Open Search">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
         <a href="account.html" class="account-trigger" aria-label="My Account" style="margin-right: 5px;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -85,7 +91,6 @@
           </svg>
         </a>
         <button class="cart-trigger" id="cartTrigger" aria-label="Open Cart" style="display:none;"></button>
-        <a href="series.html" class="btn btn-primary hide-on-mobile" style="padding: 0.55rem 1.3rem; font-size: 0.8rem;">Shop Now</a>
       </div>
     </div>
   </header>
@@ -137,6 +142,21 @@
       </div>
     </div>
   </main>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-container">
+      <button class="search-close-btn" id="closeSearchBtn" aria-label="Close Search">&times;</button>
+      <div class="search-box">
+        <svg class="search-icon-inside" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search products, ingredients..." autocomplete="off">
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
 
   <script src="app.js?v=1780760815"></script>
 </body>
