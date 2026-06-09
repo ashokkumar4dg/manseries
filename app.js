@@ -3,49 +3,48 @@ document.addEventListener("DOMContentLoaded", () => {
   // 1. Cursor Glow — Sage-tinted, smooth follow
   // ==========================================
   const cursorGlow = document.getElementById("cursorGlow");
+  const hasReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  let cursorX = 0,
-    cursorY = 0;
-  let glowX = 0,
-    glowY = 0;
+  if (cursorGlow && !hasReducedMotion) {
+    let cursorX = 0,
+      cursorY = 0;
+    let glowX = 0,
+      glowY = 0;
 
-  document.addEventListener("mousemove", (e) => {
-    cursorX = e.clientX;
-    cursorY = e.clientY;
-  });
+    document.addEventListener("mousemove", (e) => {
+      cursorX = e.clientX;
+      cursorY = e.clientY;
+    });
 
-  // Smooth follow with 80ms lag
-  const animateCursor = () => {
-    glowX += (cursorX - glowX) * 0.08;
-    glowY += (cursorY - glowY) * 0.08;
-    if (cursorGlow) {
+    // Smooth follow with 80ms lag
+    const animateCursor = () => {
+      glowX += (cursorX - glowX) * 0.08;
+      glowY += (cursorY - glowY) * 0.08;
       cursorGlow.style.left = `${glowX - 120}px`;
       cursorGlow.style.top = `${glowY - 120}px`;
-    }
-    requestAnimationFrame(animateCursor);
-  };
-  animateCursor();
+      requestAnimationFrame(animateCursor);
+    };
+    animateCursor();
 
-  // Scale cursor on hoverable elements
-  const hoverTargets = document.querySelectorAll(
-    "a, button, .product-card, .concern-btn, .science-card, .series-card, .byos-product-tile",
-  );
-  hoverTargets.forEach((el) => {
-    el.addEventListener("mouseenter", () => {
-      if (cursorGlow) {
+    // Scale cursor on hoverable elements
+    const hoverTargets = document.querySelectorAll(
+      "a, button, .product-card, .concern-btn, .science-card, .series-card, .byos-product-tile",
+    );
+    hoverTargets.forEach((el) => {
+      el.addEventListener("mouseenter", () => {
         cursorGlow.style.width = "340px";
         cursorGlow.style.height = "340px";
         cursorGlow.style.opacity = "0.7";
-      }
-    });
-    el.addEventListener("mouseleave", () => {
-      if (cursorGlow) {
+      });
+      el.addEventListener("mouseleave", () => {
         cursorGlow.style.width = "240px";
         cursorGlow.style.height = "240px";
         cursorGlow.style.opacity = "0.5";
-      }
+      });
     });
-  });
+  } else if (cursorGlow) {
+    cursorGlow.style.display = "none";
+  }
 
   // ==========================================
   // 1.5 Magnetic Tags (Micro-Interaction)
@@ -299,10 +298,33 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fill();
 
         if (this.label) {
-          ctx.fillStyle = "#B8B3AE";
-          ctx.font = "500 9px Inter, sans-serif";
-          ctx.textAlign = "center";
-          ctx.fillText(this.label, this.x, this.y - this.radius - 8);
+          const match = this.label.match(/^(.*?)(\d+(\.\d+)?%)/);
+          if (match) {
+            const textPart = match[1]; // e.g., "Niacinamide "
+            const percentPart = match[2]; // e.g., "4%"
+            
+            ctx.font = "600 11px Satoshi, Inter, sans-serif";
+            const w1 = ctx.measureText(textPart).width;
+            ctx.font = "bold 11px Satoshi, Inter, sans-serif";
+            const w2 = ctx.measureText(percentPart).width;
+            
+            const totalW = w1 + w2;
+            const startX = this.x - totalW / 2;
+            
+            ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+            ctx.font = "600 11px Satoshi, Inter, sans-serif";
+            ctx.textAlign = "left";
+            ctx.fillText(textPart, startX, this.y - this.radius - 10);
+            
+            ctx.fillStyle = this.color;
+            ctx.font = "bold 11px Satoshi, Inter, sans-serif";
+            ctx.fillText(percentPart, startX + w1, this.y - this.radius - 10);
+          } else {
+            ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+            ctx.font = "600 11px Satoshi, Inter, sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(this.label, this.x, this.y - this.radius - 10);
+          }
         }
 
         ctx.restore();
@@ -312,14 +334,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const spawnIdleParticles = () => {
       particles = [];
       const baseActives = [
-        "BHA",
-        "Aloe",
-        "B3",
-        "Zn",
-        "HA",
-        "SPF",
-        "TiO₂",
-        "Niacinamide",
+        "Niacinamide 4%",
+        "Tranexamic Acid 3%",
+        "Alpha Arbutin 2%",
       ];
 
       for (let i = 0; i < 16; i++) {
@@ -372,49 +389,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const concernButtons = document.querySelectorAll(".concern-btn");
     const concernProducts = {
-      fw: {
-        color: "#7CC09A",
-        title: "Botanical BHA Complex Activated",
-        desc: "Salicylic + Chamomile cleanser to control sebum and clear pigmentation.",
+      ta: {
+        color: "#C8A96E",
+        title: "Tranexamic Acid 3% Formulated",
+        desc: "High-purity clinical active that targets dark spots, melasma, and stubborn post-acne hyperpigmentation.",
         actives: [
-          "Salicylic",
-          "Green Tea",
-          "Chamomile",
-          "Aloe Vera",
-          "BHA",
-          "Citric",
-          "Zinc",
-          "Cleanser",
+          "Tranexamic Acid 3%",
+          "Alpha Arbutin 2%",
+          "Niacinamide 4%",
+          "Kojic Acid 1%",
+          "Licorice Extract 1.5%",
+          "Hyaluronic Acid 1%",
+          "Kombucha Ferment",
+          "Glutathione 0.5%",
         ],
       },
-      sr: {
+      aa: {
         color: "#89B5C0",
-        title: "Active Barrier Boost Formula Synced",
-        desc: "10% Niacinamide + Zinc PCA to heal acne marks and lock moisture.",
+        title: "Alpha Arbutin 2% Synthesized",
+        desc: "A potent skin brightener that deactivates tyrosinase activity to reduce melanin and even skin tone.",
         actives: [
-          "Niacinamide",
-          "Zinc PCA",
-          "Hyaluronic",
-          "Ceramide",
-          "Lipids",
-          "Hydration",
-          "B3",
-          "Barrier",
+          "Alpha Arbutin 2%",
+          "Salicylic Acid 2%",
+          "Niacinamide 3%",
+          "Vitamin C 10%",
+          "Ferulic Acid 0.5%",
+          "Centella Asiatica",
+          "Aloe Vera Hydrolat",
+          "Vitamin E 1%",
         ],
       },
-      ss: {
-        color: "#CCAB82",
-        title: "UV Shield Capsule Synthesized",
-        desc: "SPF 50+ matte defense matrix protecting from sun tan and blue-light.",
+      na: {
+        color: "#7CC09A",
+        title: "Niacinamide 4% Activated",
+        desc: "Medical-grade Vitamin B3 that regulates sebum, shrinks enlarged pores, and repairs lipid barrier.",
         actives: [
-          "SPF 50+",
-          "UVA Filter",
-          "UVB Guard",
-          "Titanium",
-          "Matte Silica",
-          "Anti-Blue",
-          "Barrier",
-          "UV Guard",
+          "Niacinamide 4%",
+          "Zinc PCA 1%",
+          "Ceramide NP 0.2%",
+          "Panthenol 2%",
+          "Phytosphingosine 0.1%",
+          "Green Tea Extract",
+          "Squalane 2%",
+          "Allantoin 0.5%",
         ],
       },
     };
@@ -424,7 +441,7 @@ document.addEventListener("DOMContentLoaded", () => {
         concernButtons.forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
 
-        const productType = btn.dataset.product;
+        const productType = btn.dataset.acid;
         reactorActiveProduct = productType;
         const productInfo = concernProducts[productType];
         systemColor = productInfo.color;
@@ -510,12 +527,16 @@ document.addEventListener("DOMContentLoaded", () => {
   if (cartTrigger) cartTrigger.addEventListener("click", toggleCart);
   cartTriggers.forEach((btn) => btn.addEventListener("click", toggleCart));
 
+  let toastTimeout = null;
   const triggerToast = (message) => {
-    if (!toast || !toastMessage) return;
-    toastMessage.textContent = message;
-    toast.classList.add("visible");
-    setTimeout(() => {
-      toast.classList.remove("visible");
+    const toastEl = document.getElementById("cartToast");
+    const msgEl = document.getElementById("toastMessage");
+    if (!toastEl || !msgEl) return;
+    msgEl.textContent = message;
+    toastEl.classList.add("visible");
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toastEl.classList.remove("visible");
     }, 2800);
   };
 
@@ -565,13 +586,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let imgSrc = "";
       if (item.img === "fw")
-        imgSrc = "Product Images/Face wash/Transparent_Facewash.png?v=3";
+        imgSrc = "Images/Face wash/Transparent_Facewash.png?v=3";
       else if (item.img === "sr")
-        imgSrc = "Product Images/Serum/Transparent_Serum.png?v=3";
+        imgSrc = "Images/Serum/Transparent_Serum.png?v=3";
       else if (item.img === "ss")
-        imgSrc = "Product Images/Sunscreen/Transparent_Sunscreen.png?v=3";
+        imgSrc = "Images/Sunscreen/Transparent_Sunscreen.png?v=3";
 
       itemNode.innerHTML = `
+        <button class="remove-cart-item-btn" data-id="${item.id}" aria-label="Remove item">&times;</button>
         <div class="cart-item-img">
           <img src="${imgSrc}" style="width: 100%; height: 100%; object-fit: contain; transform: scale(1.5); filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));" alt="${item.name}">
         </div>
@@ -596,6 +618,96 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".inc-btn").forEach((btn) => {
       btn.addEventListener("click", () => adjustQuantity(btn.dataset.id, 1));
     });
+    document.querySelectorAll(".remove-cart-item-btn").forEach((btn) => {
+      btn.addEventListener("click", () => removeProductFromCart(btn.dataset.id));
+    });
+  };
+
+  // Transparent header status notification tile logic
+  const showHeaderStatusTile = (message, isError = false) => {
+    let tile = document.getElementById("headerStatusTile");
+    if (!tile) {
+      const tileHTML = `
+        <div class="header-status-tile" id="headerStatusTile">
+          <div class="header-status-tile-icon" id="headerStatusTileIcon">✓</div>
+          <div class="header-status-tile-message" id="headerStatusTileMessage"></div>
+          <button class="header-status-tile-close" id="headerStatusTileClose" aria-label="Close Notification">&times;</button>
+        </div>
+      `;
+      document.body.insertAdjacentHTML("beforeend", tileHTML);
+      tile = document.getElementById("headerStatusTile");
+      
+      const closeBtn = document.getElementById("headerStatusTileClose");
+      if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+          tile.classList.remove("visible");
+        });
+      }
+    }
+
+    const messageEl = document.getElementById("headerStatusTileMessage");
+    const iconEl = document.getElementById("headerStatusTileIcon");
+
+    if (messageEl && iconEl) {
+      messageEl.textContent = message;
+      if (isError) {
+        tile.classList.add("alert-state");
+        iconEl.innerHTML = `
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        `;
+      } else {
+        tile.classList.remove("alert-state");
+        iconEl.innerHTML = "✓";
+      }
+    }
+
+    tile.classList.add("visible");
+
+    if (window.statusTileTimeout) {
+      clearTimeout(window.statusTileTimeout);
+    }
+    window.statusTileTimeout = setTimeout(() => {
+      tile.classList.remove("visible");
+    }, 3200);
+  };
+
+  const triggerCartFeedback = () => {
+    // Haptic feedback sequence (short double pulse)
+    if (navigator.vibrate) {
+      navigator.vibrate([40, 30, 40]);
+    }
+
+    // Glow effect on all cart trigger elements
+    const triggers = document.querySelectorAll(".cart-trigger");
+    triggers.forEach((el) => {
+      el.classList.remove("glow-active");
+      void el.offsetWidth; // Force reflow
+      el.classList.add("glow-active");
+    });
+
+    // Count badge bump
+    const badges = document.querySelectorAll(".cart-count");
+    badges.forEach((el) => {
+      el.classList.remove("bump-active");
+      void el.offsetWidth; // Force reflow
+      el.classList.add("bump-active");
+    });
+
+    // Automatically remove glow and bump classes after 3 seconds
+    if (window.cartFeedbackTimeout) {
+      clearTimeout(window.cartFeedbackTimeout);
+    }
+    window.cartFeedbackTimeout = setTimeout(() => {
+      triggers.forEach((el) => {
+        el.classList.remove("glow-active");
+      });
+      badges.forEach((el) => {
+        el.classList.remove("bump-active");
+      });
+    }, 3000);
   };
 
   const addToCart = (product) => {
@@ -606,7 +718,9 @@ document.addEventListener("DOMContentLoaded", () => {
       cart.push({ ...product, qty: 1 });
     }
     updateCartUI();
-    triggerToast(`${product.name} added to your routine`);
+    
+    // Trigger vibration, glow, and bump animations
+    triggerCartFeedback();
   };
 
   const adjustQuantity = (productId, amount) => {
@@ -619,6 +733,21 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCartUI();
   };
 
+  const removeProductFromCart = (productId) => {
+    const product = cart.find((item) => item.id === productId);
+    if (!product) return;
+    cart = cart.filter((item) => item.id !== productId);
+    updateCartUI();
+    
+    // Light vibration feedback
+    if (navigator.vibrate) {
+      navigator.vibrate(30);
+    }
+    
+    // Show alert notification tile
+    showHeaderStatusTile(`System Alert: ${product.name} removed from routine!`, true);
+  };
+
   // Bind add-to-cart buttons (works on any page)
   document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
     if (!btn.hasAttribute("data-cart-listener")) {
@@ -626,6 +755,8 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.addEventListener("click", () => {
         if (btn.classList.contains("adding") || btn.classList.contains("added"))
           return;
+
+        if (navigator.vibrate) navigator.vibrate(50);
 
         const originalText = btn.innerHTML;
         const originalWidth = btn.offsetWidth;
@@ -674,7 +805,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="ms-auth-card" style="border:none; box-shadow:none; padding:2rem;">
             <!-- Top Section -->
             <div class="ms-auth-header">
-              <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="ms-auth-logo">
+              <img src="Images/Logo/Wordmark Logo.png?v=2" alt="Man Series" class="ms-auth-logo">
               <h2>WELCOME</h2>
               <p>Sign in to continue shopping and manage your orders.</p>
             </div>
@@ -690,6 +821,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <div id="modalMobileStep1">
                 <div class="ms-input-group">
                   <span class="ms-country-code">+91</span>
+                  <label for="modalMobileNumberInput" class="sr-only">Mobile Number</label>
                   <input type="tel" id="modalMobileNumberInput" placeholder="Mobile Number" maxlength="10" inputmode="numeric">
                 </div>
                 <p class="ms-microcopy">Get updates about your orders directly on your phone.</p>
@@ -699,14 +831,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h3 style="text-align:center; font-family:var(--font-display); margin-bottom:0.5rem;">Verify Your Number</h3>
                 <p style="text-align:center; font-size:0.9rem; color:var(--muted); margin-bottom:1.5rem;">Enter the 6-digit code sent to your mobile number.</p>
                 <div class="ms-otp-container" id="modalMobileOtpBoxes">
-                  <input type="tel" maxlength="1" inputmode="numeric">
-                  <input type="tel" maxlength="1" inputmode="numeric">
-                  <input type="tel" maxlength="1" inputmode="numeric">
-                  <input type="tel" maxlength="1" inputmode="numeric">
-                  <input type="tel" maxlength="1" inputmode="numeric">
-                  <input type="tel" maxlength="1" inputmode="numeric">
+                  <input type="tel" maxlength="1" inputmode="numeric" aria-label="Digit 1">
+                  <input type="tel" maxlength="1" inputmode="numeric" aria-label="Digit 2">
+                  <input type="tel" maxlength="1" inputmode="numeric" aria-label="Digit 3">
+                  <input type="tel" maxlength="1" inputmode="numeric" aria-label="Digit 4">
+                  <input type="tel" maxlength="1" inputmode="numeric" aria-label="Digit 5">
+                  <input type="tel" maxlength="1" inputmode="numeric" aria-label="Digit 6">
                 </div>
-                <p class="ms-error-text" id="modalMobileErrorMsg" style="display: none;"></p>
+                <p class="ms-error-text" id="modalMobileErrorMsg" role="alert" style="display: none;"></p>
                 <button class="ms-primary-btn" onclick="verifyOtp('mobile', true)">Verify & Continue</button>
                 <div class="ms-auth-options">
                   <button class="ms-text-btn" onclick="resendOtp('mobile', true)">Resend OTP</button>
@@ -719,6 +851,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div id="modalAuthFlowEmail" class="ms-auth-flow" style="display: none;">
               <div id="modalEmailStep1">
                 <div class="ms-input-group">
+                  <label for="modalEmailAddressInput" class="sr-only">Email Address</label>
                   <input type="email" id="modalEmailAddressInput" placeholder="Email Address">
                 </div>
                 <p class="ms-microcopy">Receive order confirmations and tracking updates.</p>
@@ -728,14 +861,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h3 style="text-align:center; font-family:var(--font-display); margin-bottom:0.5rem;">Verify Your Email</h3>
                 <p style="text-align:center; font-size:0.9rem; color:var(--muted); margin-bottom:1.5rem;">Enter the 6-digit code sent to your email address.</p>
                 <div class="ms-otp-container" id="modalEmailOtpBoxes">
-                  <input type="tel" maxlength="1" inputmode="numeric">
-                  <input type="tel" maxlength="1" inputmode="numeric">
-                  <input type="tel" maxlength="1" inputmode="numeric">
-                  <input type="tel" maxlength="1" inputmode="numeric">
-                  <input type="tel" maxlength="1" inputmode="numeric">
-                  <input type="tel" maxlength="1" inputmode="numeric">
+                  <input type="tel" maxlength="1" inputmode="numeric" aria-label="Digit 1">
+                  <input type="tel" maxlength="1" inputmode="numeric" aria-label="Digit 2">
+                  <input type="tel" maxlength="1" inputmode="numeric" aria-label="Digit 3">
+                  <input type="tel" maxlength="1" inputmode="numeric" aria-label="Digit 4">
+                  <input type="tel" maxlength="1" inputmode="numeric" aria-label="Digit 5">
+                  <input type="tel" maxlength="1" inputmode="numeric" aria-label="Digit 6">
                 </div>
-                <p class="ms-error-text" id="modalEmailErrorMsg" style="display: none;"></p>
+                <p class="ms-error-text" id="modalEmailErrorMsg" role="alert" style="display: none;"></p>
                 <button class="ms-primary-btn" onclick="verifyOtp('email', true)">Verify & Continue</button>
                 <div class="ms-auth-options">
                   <button class="ms-text-btn" onclick="resendOtp('email', true)">Resend Code</button>
@@ -754,15 +887,15 @@ document.addEventListener("DOMContentLoaded", () => {
             <!-- Trust Bar -->
             <div class="ms-trust-bar">
               <div class="ms-trust-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 11 2 2 4-4"></path></svg>
                 <span>Secure Checkout</span>
               </div>
               <div class="ms-trust-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="14" height="12" rx="2" ry="2"></rect><path d="M16 8h4l3 3v4h-7z"></path><circle cx="6.5" cy="18" r="2"></circle><circle cx="18.5" cy="18" r="2"></circle><path d="M10 18h6"></path><path d="M2 8h3M3 11h2"></path></svg>
                 <span>Fast Delivery</span>
               </div>
               <div class="ms-trust-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path><polyline points="21 21 21 16 16 16"></polyline></svg>
                 <span>Easy Returns</span>
               </div>
             </div>
@@ -1121,6 +1254,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addByosToCart = function () {
     if (byosSelected.size === 0) return;
+
+    // Vibrate phone slightly for haptic feedback
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+
     byosSelected.forEach((id) => {
       const p = byosProducts[id];
       addToCart({ id: id, name: p.name, price: p.price, img: p.img });
@@ -1148,6 +1287,218 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   if (mobileMenuBtn) mobileMenuBtn.addEventListener("click", toggleMobileNav);
+
+  // ==========================================
+  // 12. Search Overlay & Live Search Logic
+  // ==========================================
+  const searchTrigger = document.getElementById("searchTrigger");
+  const searchOverlay = document.getElementById("searchOverlay");
+  const closeSearchBtn = document.getElementById("closeSearchBtn");
+  const searchInput = document.getElementById("searchInput");
+  const searchResults = document.getElementById("searchResults");
+
+  const searchIndex = [
+    {
+      id: "fw",
+      name: "Multi-Active Face Wash",
+      category: "Cleanse",
+      price: "₹249",
+      desc: "Deep-cleansing BHA formula that removes oil, tan, and pollution buildup.",
+      image: "fw",
+      url: "series.html",
+      keywords: ["face wash", "cleanser", "bha", "salicylic acid", "2%", "glycolic", "tan", "oil", "acne", "chamomile", "cleanse"]
+    },
+    {
+      id: "sr",
+      name: "Barrier Boost Serum",
+      category: "Treat",
+      price: "₹349",
+      desc: "Potent actives that target acne scars, regulate sebum and rapidly restore your skin's moisture barrier.",
+      image: "sr",
+      url: "series.html",
+      keywords: ["serum", "barrier boost", "niacinamide", "4%", "zinc", "tranexamic acid", "3%", "alpha arbutin", "2%", "acne scars", "hyperpigmentation", "pores", "hydration", "treat"]
+    },
+    {
+      id: "ss",
+      name: "Ultra-Shield Matte Sunscreen",
+      category: "Protect",
+      price: "₹299",
+      desc: "Broad-spectrum UVA/UVB matte sunscreen engineered for Indian heat and humidity.",
+      image: "ss",
+      url: "series.html",
+      keywords: ["sunscreen", "sun shield", "spf", "spf 50", "uva", "uvb", "matte", "sun protect", "sun block", "protect"]
+    },
+    {
+      id: "ta",
+      name: "Tranexamic Acid 3%",
+      category: "Clinical Active",
+      price: "",
+      desc: "High-purity clinical active that targets dark spots, melasma, and hyperpigmentation. Found in Barrier Boost Serum.",
+      image: "sr",
+      url: "index.html#reactor",
+      keywords: ["tranexamic", "ta", "dark spots", "melasma", "hyperpigmentation", "pigmentation", "3%"]
+    },
+    {
+      id: "aa",
+      name: "Alpha Arbutin 2%",
+      category: "Clinical Active",
+      price: "",
+      desc: "Potent skin brightener that reduces melanin production and evens out discoloration. Found in Barrier Boost Serum.",
+      image: "sr",
+      url: "index.html#reactor",
+      keywords: ["alpha arbutin", "arbutin", "brightening", "discoloration", "melanin", "2%"]
+    },
+    {
+      id: "na",
+      name: "Niacinamide 4%",
+      category: "Clinical Active",
+      price: "",
+      desc: "Vitamin B3 active that regulates sebum, shrinks pores, and repairs lipid barrier. Found in Face Wash, Serum, & Sunscreen.",
+      image: "sr",
+      url: "index.html#reactor",
+      keywords: ["niacinamide", "vitamin b3", "sebum", "pores", "barrier repair", "4%"]
+    }
+  ];
+
+  const toggleSearch = (open) => {
+    if (!searchOverlay) return;
+    if (open) {
+      searchOverlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+      setTimeout(() => {
+        if (searchInput) searchInput.focus();
+      }, 100);
+      renderSearchResults("");
+    } else {
+      searchOverlay.classList.remove("open");
+      document.body.style.overflow = "";
+      if (searchInput) searchInput.value = "";
+    }
+  };
+
+  if (searchTrigger) {
+    searchTrigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggleSearch(true);
+    });
+  }
+
+  if (closeSearchBtn) {
+    closeSearchBtn.addEventListener("click", () => toggleSearch(false));
+  }
+
+  if (searchOverlay) {
+    searchOverlay.addEventListener("click", (e) => {
+      if (e.target === searchOverlay) {
+        toggleSearch(false);
+      }
+    });
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && searchOverlay && searchOverlay.classList.contains("open")) {
+      toggleSearch(false);
+    }
+  });
+
+  const getProductImageSrc = (imgKey) => {
+    if (imgKey === "fw") return "Images/Face wash/Transparent_Facewash.png?v=3";
+    if (imgKey === "sr") return "Images/Serum/Transparent_Serum.png?v=3";
+    if (imgKey === "ss") return "Images/Sunscreen/Transparent_Sunscreen.png?v=3";
+    return "";
+  };
+
+  const renderSearchResults = (query) => {
+    if (!searchResults) return;
+    const cleanQuery = query.toLowerCase().trim();
+
+    if (!cleanQuery) {
+      searchResults.innerHTML = `
+        <h4 class="popular-searches-title">Popular Searches</h4>
+        <div class="popular-search-tags">
+          <button class="popular-search-tag" data-query="Niacinamide">Niacinamide</button>
+          <button class="popular-search-tag" data-query="Face Wash">Face Wash</button>
+          <button class="popular-search-tag" data-query="Sunscreen">Sunscreen</button>
+          <button class="popular-search-tag" data-query="B.Y.O.S.">B.Y.O.S.</button>
+          <button class="popular-search-tag" data-query="Tranexamic">Tranexamic</button>
+        </div>
+      `;
+
+      searchResults.querySelectorAll(".popular-search-tag").forEach(tag => {
+        tag.addEventListener("click", () => {
+          const val = tag.dataset.query;
+          if (searchInput) {
+            searchInput.value = val;
+            renderSearchResults(val);
+          }
+        });
+      });
+      return;
+    }
+
+    const matches = searchIndex.filter(item => {
+      return item.name.toLowerCase().includes(cleanQuery) ||
+             item.desc.toLowerCase().includes(cleanQuery) ||
+             item.category.toLowerCase().includes(cleanQuery) ||
+             item.keywords.some(k => k.includes(cleanQuery));
+    });
+
+    if (matches.length === 0) {
+      searchResults.innerHTML = `
+        <div class="no-results-msg">
+          No matches found for "<strong>${query}</strong>"<br>
+          <span style="font-size:0.85rem; color:var(--muted);">Try checking spelling or use more general keywords.</span>
+        </div>
+      `;
+      return;
+    }
+
+    searchResults.innerHTML = "";
+    matches.forEach((item, index) => {
+      const itemNode = document.createElement("a");
+      itemNode.href = item.url;
+      itemNode.className = "search-result-item";
+      itemNode.style.animation = `fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${index * 50}ms forwards`;
+
+      const imgSrc = getProductImageSrc(item.image);
+
+      itemNode.innerHTML = `
+        <div class="search-result-img">
+          <img src="${imgSrc}" alt="${item.name}">
+        </div>
+        <div class="search-result-info">
+          <div class="search-result-category">${item.category}</div>
+          <div class="search-result-title">${item.name}</div>
+          <div class="search-result-desc">${item.desc}</div>
+        </div>
+        ${item.price ? `<div class="search-result-price">${item.price}</div>` : ""}
+      `;
+
+      itemNode.addEventListener("click", (e) => {
+        if (item.url.includes("#") && (window.location.pathname.endsWith("index.html") || window.location.pathname === "/" || window.location.pathname.endsWith("/"))) {
+          const hash = item.url.split("#")[1];
+          const el = document.getElementById(hash);
+          if (el) {
+            e.preventDefault();
+            toggleSearch(false);
+            el.scrollIntoView({ behavior: "smooth" });
+            if (hash === "reactor") {
+              const btn = document.querySelector(`.concern-btn[data-acid="${item.id}"]`);
+              if (btn) btn.click();
+            }
+          }
+        }
+      });
+
+      searchResults.appendChild(itemNode);
+    });
+  };
+
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      renderSearchResults(e.target.value);
+    });
+  }
 });
 
 // Testing Tool: Reset Data Button
