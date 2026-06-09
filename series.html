@@ -1,39 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Series | Man Series — Shop All Products</title>
-  <meta name="description"
-    content="Browse the complete Man Series collection. Filter by availability and price. Sort by name or price. 3 clinical skincare products for Indian men.">
-  <meta name="author" content="Man Series Co.">
-  <link rel="icon" type="image/png" href="Product Images/fav icon/favicon.png?v=2">
+  <title>Checkout | Man Series</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=1780760796">
+  <style>
+    .payment-page-wrapper {
+      padding: 10rem 0 6rem;
+      min-height: 100vh;
+      background: var(--cream);
+    }
+    
+    .checkout-header {
+      margin-bottom: 3rem;
+      text-align: center;
+      animation: fadeUp 0.5s ease-out;
+    }
+    
+    .checkout-header h1 {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--charcoal);
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    
+    .checkout-header p {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+    
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 4rem;
+      animation: fadeUp 0.6s ease-out;
+    }
+    
+    .checkout-section {
+      background: var(--warm-white);
+      border: 1px solid var(--border-warm);
+      border-radius: 32px;
+      padding: 3rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.02);
+      margin-bottom: 2rem;
+    }
+    
+    .checkout-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--charcoal);
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-warm);
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+    
+    .form-group label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid var(--border-warm);
+      border-radius: 16px;
+      background: var(--cream);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--charcoal);
+      transition: var(--transition-smooth);
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--sage);
+      background: #fff;
+    }
+    
+    .order-summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-warm);
+    }
+    
+    .order-summary-item:last-child {
+      border-bottom: none;
+    }
+    
+    .summary-title {
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+    
+    .summary-value {
+      color: var(--muted);
+    }
+    
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      margin-top: 1rem;
+      border-top: 2px solid var(--charcoal);
+      font-size: 1.5rem;
+      font-family: var(--font-display);
+      color: var(--charcoal);
+    }
+    
+    .payment-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .payment-method {
+      display: flex;
+      align-items: center;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid var(--border-warm);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    
+    .payment-method:hover {
+      background: var(--cream);
+    }
+    
+    .payment-method.active {
+      border-color: var(--charcoal);
+      background: var(--cream);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+    
+    .payment-method input[type="radio"] {
+      margin-right: 1rem;
+      accent-color: var(--charcoal);
+      transform: scale(1.2);
+    }
+    
+    .payment-method span {
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    
+    .pay-btn {
+      width: 100%;
+      padding: 1.4rem;
+      background: var(--charcoal);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 2rem;
+      transition: var(--transition-spring);
+    }
+    
+    .pay-btn:hover {
+      background: var(--ink);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    @media (max-width: 992px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+    
+    .wizard-progress {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--border-warm);
+      padding-bottom: 1rem;
+    }
+    .progress-step {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+    .progress-step.active {
+      color: var(--charcoal);
+    }
+    .sage-btn {
+      width: 100%;
+      padding: 1.2rem;
+      background: var(--sage);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-spring);
+    }
+    .sage-btn:hover {
+      background: #6a9b7e;
+      transform: translateY(-2px);
+    }
+    .continue-btn {
+      width: 100%;
+      padding: 1.2rem;
+      background: transparent;
+      color: var(--charcoal);
+      border: 1px solid var(--charcoal);
+      border-radius: 100px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .continue-btn:hover {
+      background: var(--charcoal);
+      color: #fff;
+    }
+
+    @media (max-width: 576px) {
+      .checkout-section {
+        padding: 2rem 1.5rem;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .checkout-header h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-  <div class="cursor-glow" id="cursorGlow"></div>
-
-
-
-  <!-- Announcement Bar -->
-  <div class="announcement-bar">
-    <div class="announcement-track">
-      <span class="announcement-item">Free Shipping Above ₹499 <span class="sep"></span></span>
-      <span class="announcement-item">Dermatologically Tested Actives <span class="sep"></span></span>
-      <span class="announcement-item">DoIT.C + DPIIT Recognized <span class="sep"></span></span>
-      <span class="announcement-item">Formulated for Indian Men <span class="sep"></span></span>
-      <span class="announcement-item">Clinical Transparency — No Fillers <span class="sep"></span></span>
-      <span class="announcement-item">Free Shipping Above ₹499 <span class="sep"></span></span>
-      <span class="announcement-item">Dermatologically Tested Actives <span class="sep"></span></span>
-      <span class="announcement-item">DoIT.C + DPIIT Recognized <span class="sep"></span></span>
-      <span class="announcement-item">Formulated for Indian Men <span class="sep"></span></span>
-      <span class="announcement-item">Clinical Transparency — No Fillers <span class="sep"></span></span>
-    </div>
-  </div>
-
   <!-- Navigation -->
   <header class="navbar navbar-light-page" id="navbar">
     <div class="container navbar-container">
@@ -50,18 +275,24 @@
           </svg>
         </button>
         <a href="index.html" class="logo" aria-label="Man Series Home">
-          <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
+          <img src="Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
         </a>
       </div>
       <nav class="nav-menu" id="navMenu">
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
-          <li><a href="series.html" class="nav-active">Series</a></li>
+          <li><a href="series.html">Series</a></li>
           <li><a href="byos.html">B.Y.O.S.</a></li>
           <li><a href="about.html">About</a></li>
         </ul>
       </nav>
       <div class="nav-actions">
+        <button class="search-trigger" id="searchTrigger" aria-label="Open Search">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
         <a href="account.html" class="account-trigger" aria-label="My Account" style="margin-right: 5px;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -77,300 +308,378 @@
           </svg>
           <span class="cart-count" id="cartBadgeCount">0</span>
         </button>
-        <a href="series.html" class="btn btn-nav hide-on-mobile" style="padding: 0.55rem 1.3rem; font-size: 0.8rem;">Shop Now</a>
       </div>
     </div>
   </header>
 
-
-  <!-- ═══════════════════════════════════════════════
-       PAGE HERO BANNER
-       ═══════════════════════════════════════════════ -->
-  <section class="page-hero" style="background: var(--cream); padding: 10rem 0 4rem; text-align: center;">
+  <main class="payment-page-wrapper">
     <div class="container">
-      <span class="eyebrow" style="color: var(--sage-dark); display:block; margin-bottom:1rem;">THE COLLECTION</span>
-      <h1 style="font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 1rem; line-height: 1;">
-        <span class="line-normal">Clinical Actives.</span>
-        <span class="line-italic">The Man</span>
-        <span class="line-normal">Series.</span>
-      </h1>
-      <p style="color: var(--muted); font-size: 1rem; max-width: 500px; margin: 0 auto; line-height: 1.7;">Every product
-        engineered to work together — or independently. Clinical actives. No compromise.</p>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════
-       SERIES — Filter & Sort + Products
-       ═══════════════════════════════════════════════ -->
-  <section class="series-section" id="series-section" style="padding-top: 4rem;">
-    <div class="container">
-
-      <!-- Filter & Sort Bar -->
-      <div class="filter-sort-bar reveal">
-        <div class="filter-group">
-          <span class="filter-label">Filter:</span>
-          <div class="filter-dropdown" id="filterAvailability">
-            <button class="filter-btn" onclick="toggleDropdown('availDropdown')">
-              Availability
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-            <div class="dropdown-menu" id="availDropdown">
-              <label class="dropdown-item"><input type="checkbox" value="available" checked> In Stock</label>
-              <label class="dropdown-item"><input type="checkbox" value="launching"> Launching Soon</label>
-            </div>
-          </div>
-          <div class="filter-dropdown" id="filterPrice">
-            <button class="filter-btn" onclick="toggleDropdown('priceDropdown')">
-              Price
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-            <div class="dropdown-menu" id="priceDropdown">
-              <label class="dropdown-item"><input type="radio" name="price" value="all" checked> All Prices</label>
-              <label class="dropdown-item"><input type="radio" name="price" value="under300"> Under ₹300</label>
-              <label class="dropdown-item"><input type="radio" name="price" value="300to400"> ₹300 – ₹400</label>
-            </div>
-          </div>
-        </div>
-        <div class="sort-group">
-          <span class="filter-label">Sort by:</span>
-          <div class="filter-dropdown" id="sortBy">
-            <button class="filter-btn sort-btn" onclick="toggleDropdown('sortDropdown')">
-              <span id="sortLabel">Alphabetically, A–Z</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-            <div class="dropdown-menu dropdown-right" id="sortDropdown">
-              <div class="dropdown-item sort-option active" data-sort="alpha-asc">Alphabetically, A–Z</div>
-              <div class="dropdown-item sort-option" data-sort="alpha-desc">Alphabetically, Z–A</div>
-              <div class="dropdown-item sort-option" data-sort="price-asc">Price, Low to High</div>
-              <div class="dropdown-item sort-option" data-sort="price-desc">Price, High to Low</div>
-            </div>
-          </div>
-          <span class="product-count" id="seriesProductCount">3 products</span>
-        </div>
+      
+      <div class="checkout-header">
+        <h1>Secure Checkout</h1>
+        <p>Complete your order securely</p>
       </div>
-
-      <!-- Series Grid -->
-      <div class="series-grid reveal-stagger" id="seriesGrid">
-
-        <div class="series-card" data-name="Face Wash" data-price="249" data-avail="available">
-          <div class="series-card-badge">Best Seller</div>
-          <div class="series-img-wrap">
-            <img src="Product Images/Face wash/Transparent_Facewash.png?v=3" alt="Multi-Active Face Wash"
-              class="series-product-img">
+      
+      <div class="checkout-grid">
+        
+        <!-- Left Column: Details (3-Step Wizard) -->
+        <div class="checkout-left">
+          
+          <!-- Progress Tracker -->
+          <div class="wizard-progress">
+            <div class="progress-step active" id="tracker-step1">1. Address</div>
+            <div class="progress-step" id="tracker-step2">2. Payment</div>
           </div>
-          <div class="series-card-body">
-            <span class="series-actives-pill">Salicylic Acid + Chamomile</span>
-            <h3>Multi-Active Face Wash</h3>
-            <div class="series-card-meta">
-              <span class="series-price">₹249</span>
-              <div class="series-rating">
-                <span class="stars">★★★★★</span>
-                <span class="rating-count">(42)</span>
+
+          <!-- STEP 1: Address -->
+          <div class="checkout-section wizard-step" id="step1">
+            <h2>Delivery Address</h2>
+            <form id="shippingForm" onsubmit="event.preventDefault(); goToStep(2);">
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label>Full Name</label>
+                  <input type="text" id="checkoutName" placeholder="e.g. Rahul Sharma" required>
+                </div>
+                <div class="form-group">
+                  <label>Email Address</label>
+                  <input type="email" id="checkoutEmail" placeholder="rahul@example.com" required>
+                </div>
+                <div class="form-group">
+                  <label>Phone Number</label>
+                  <input type="tel" id="checkoutPhone" placeholder="+91" maxlength="10" required>
+                </div>
+                <div class="form-group full-width">
+                  <label>Street Address (Flat, House, Area)</label>
+                  <input type="text" id="checkoutAddress" placeholder="House no, Street, Area" required>
+                </div>
+                <div class="form-group">
+                  <label>City</label>
+                  <input type="text" id="checkoutCity" placeholder="e.g. Mumbai" required>
+                </div>
+                <div class="form-group">
+                  <label>Pincode</label>
+                  <input type="text" id="checkoutPincode" placeholder="e.g. 400001" required>
+                </div>
+              </div>
+              <button type="submit" class="sage-btn" style="margin-top: 2rem;">Continue to Payment</button>
+            </form>
+          </div>
+          
+          <!-- STEP 2: Payment -->
+          <div class="checkout-section wizard-step" id="step2" style="display: none;">
+            <h2>Payment Method</h2>
+            <div class="payment-methods">
+              <label class="payment-method active">
+                <input type="radio" name="payment" value="upi" checked>
+                <span>UPI (GPay, PhonePe, Paytm)</span>
+              </label>
+              <label class="payment-method">
+                <input type="radio" name="payment" value="card">
+                <span>Credit / Debit Card</span>
+              </label>
+              <label class="payment-method">
+                <input type="radio" name="payment" value="netbanking">
+                <span>Netbanking</span>
+              </label>
+              <label class="payment-method">
+                <input type="radio" name="payment" value="cod">
+                <span>Cash on Delivery (COD)</span>
+              </label>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+              <button type="button" class="continue-btn" onclick="goToStep(1)">Back to Address</button>
+            </div>
+          </div>
+          
+        </div>
+        
+        <!-- Right Column: Order Summary -->
+        <div class="checkout-right">
+          <div class="checkout-section" style="position: sticky; top: 100px;">
+            <h2>Order Summary</h2>
+            
+            <div id="checkoutItemsList" style="margin-bottom: 2rem;">
+              <!-- Items will be injected here via JS -->
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+              <div class="form-group" style="display: flex; gap: 10px;">
+                <input type="text" placeholder="Promo / Coupon Code" style="flex: 1; padding: 0.8rem 1rem;" id="promoCode">
+                <button type="button" class="sage-btn" style="width: auto; padding: 0 1.2rem; border-radius: 12px; margin-top: 0;" onclick="applyPromo()">Apply</button>
+              </div>
+              <div id="promoMsg" style="font-size: 0.85rem; margin-top: 0.5rem; color: #4caf50; display: none;">Coupon applied successfully!</div>
+            </div>
+            
+            <div style="border-top: 1px solid var(--border-warm); padding-top: 1.5rem;">
+              <div class="order-summary-item">
+                <span class="summary-title">Subtotal</span>
+                <span class="summary-value" id="checkoutSubtotal">₹0</span>
+              </div>
+              <div class="order-summary-item">
+                <span class="summary-title">Shipping</span>
+                <span class="summary-value" id="checkoutShipping">Free</span>
+              </div>
+              <div class="order-summary-item">
+                <span class="summary-title">Estimated GST (18%)</span>
+                <span class="summary-value" id="checkoutTax">₹0</span>
+              </div>
+              
+              <div class="total-row">
+                <span>Total to Pay</span>
+                <span id="checkoutTotal">₹0</span>
+              </div>
+              
+              <button class="pay-btn" id="payNowBtn" onclick="processPayment()">Confirm & Pay</button>
+              
+              <div style="text-align: center; margin-top: 1.5rem; color: var(--muted); font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                Secure 256-bit SSL Encryption
               </div>
             </div>
-            <p class="series-card-desc">Deep-cleansing BHA formula that removes oil, tan, and pollution buildup while
-              protecting skin barrier.</p>
-            <button class="series-add-btn add-to-cart-btn" data-id="fw" data-name="Multi-Active Face Wash"
-              data-price="249" data-img="fw">Add to Routine +</button>
           </div>
         </div>
-
-        <div class="series-card" data-name="Serum" data-price="349" data-avail="available">
-          <div class="series-card-badge featured">Most Loved</div>
-          <div class="series-img-wrap">
-            <img src="Product Images/Serum/Transparent_Serum.png?v=3" alt="Barrier Boost Serum"
-              class="series-product-img">
-          </div>
-          <div class="series-card-body">
-            <span class="series-actives-pill">10% Niacinamide + Zinc PCA</span>
-            <h3>Barrier Boost Serum</h3>
-            <div class="series-card-meta">
-              <span class="series-price">₹349</span>
-              <div class="series-rating">
-                <span class="stars">★★★★★</span>
-                <span class="rating-count">(67)</span>
-              </div>
-            </div>
-            <p class="series-card-desc">Potent actives that target acne scars, regulate sebum and rapidly restore your
-              skin's moisture barrier.</p>
-            <button class="series-add-btn add-to-cart-btn" data-id="sr" data-name="Barrier Boost Serum" data-price="349"
-              data-img="sr">Add to Routine +</button>
-          </div>
-        </div>
-
-        <div class="series-card" data-name="Sunscreen" data-price="299" data-avail="available">
-          <div class="series-img-wrap">
-            <img src="Product Images/Sunscreen/Transparent_Sunscreen.png?v=3" alt="Matte Sun Shield"
-              class="series-product-img">
-          </div>
-          <div class="series-card-body">
-            <span class="series-actives-pill">SPF 50+ · PA++++ · Matte</span>
-            <h3>Ultra-Shield Matte Sunscreen</h3>
-            <div class="series-card-meta">
-              <span class="series-price">₹299</span>
-              <div class="series-rating">
-                <span class="stars">★★★★☆</span>
-                <span class="rating-count">(38)</span>
-              </div>
-            </div>
-            <p class="series-card-desc">Broad-spectrum UVA/UVB matte sunscreen engineered for Indian heat, humidity and
-              active lifestyles.</p>
-            <button class="series-add-btn add-to-cart-btn" data-id="ss" data-name="Matte Sun Shield" data-price="299"
-              data-img="ss">Add to Routine +</button>
-          </div>
-        </div>
-
+        
       </div>
+      
     </div>
-  </section>
+  </main>
 
+  <!-- Dedicated Confetti Canvas -->
+  <canvas id="confettiCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999; pointer-events: none;"></canvas>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="footer-statement reveal">
-        <h2>SKIN <span>MINIMALISM.</span></h2>
-        <p>Fewer products. Healthier skin. Formulated for the Indian man who demands transparency, science, and results.
-        </p>
+  <!-- Success Modal (Hidden by default) -->
+  <div id="successModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;">
+    <div style="background: var(--warm-white); padding: 4rem; border-radius: 32px; text-align: center; max-width: 500px; width: 90%; transform: translateY(20px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+      <div style="width: 80px; height: 80px; background: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; color: #4caf50;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
       </div>
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="footer-logo"
-            style="height: 36px; margin-bottom: 1.5rem;">
-          <p>Clinically proven, active skincare simplified for Indian Men. Transparent packaging. Honest pricing.</p>
-          <div class="footer-manifesto">"WE TRUST MAN"</div>
-        </div>
-        <div class="footer-links">
-          <h4>Explore</h4>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="series.html">The Series</a></li>
-            <li><a href="byos.html">B.Y.O.S.</a></li>
-            <li><a href="about.html">About</a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#">FAQs</a></li>
-            <li><a href="#">Returns</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-          </ul>
-        </div>
-        <div class="footer-contact">
-          <h4>Connect</h4>
-          <p>Designed around the intense heat, pollution, and sweat of Indian cities. All actives are dermatologically
-            tested.</p>
-          <p><a href="mailto:support@manseries.in">support@manseries.in</a></p>
-          <div class="social-icons">
-            <a href="https://www.instagram.com/manseries.in" class="social-icon" aria-label="Instagram" target="_blank"
-              rel="noopener noreferrer">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-              </svg>
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=61577519865089" class="social-icon" aria-label="Facebook" target="_blank"
-              rel="noopener noreferrer">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-              </svg>
-            </a>
-            <a href="https://www.youtube.com/@man.series_in" class="social-icon" aria-label="YouTube" target="_blank"
-              rel="noopener noreferrer">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path
-                  d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z">
-                </path>
-                <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>
-              </svg>
-            </a>
-            <a href="https://www.pinterest.com/manseries01" class="social-icon" aria-label="Pinterest" target="_blank"
-              rel="noopener noreferrer">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path
-                  d="M12 2C6.477 2 2 6.477 2 12c0 4.236 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.181-.78 1.172-4.97 1.172-4.97s-.299-.598-.299-1.482c0-1.388.806-2.428 1.808-2.428.853 0 1.267.641 1.267 1.408 0 .858-.546 2.14-.828 3.33-.236.995.499 1.806 1.476 1.806 1.772 0 3.137-1.868 3.137-4.561 0-2.387-1.715-4.052-4.163-4.052-2.838 0-4.5 2.126-4.5 4.326 0 .857.33 1.775.742 2.276a.3.3 0 0 1 .069.285c-.076.315-.244.995-.277 1.134-.044.183-.145.222-.335.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.966-.527-2.292-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z" />
-              </svg>
-            </a>
-            <a href="https://www.threads.net/@manseries.in" class="social-icon" aria-label="Threads" target="_blank"
-              rel="noopener noreferrer">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <path d="M19 7.5c-1.333 -3 -3.667 -4.5 -7 -4.5c-5 0 -8 2.5 -8 9s3.5 9 8 9s7 -3 7 -5s-1 -5 -7 -5c-2.5 0 -3 1.25 -3 2.5c0 1.5 1 2.5 2.5 2.5c2.5 0 3.5 -1.5 3.5 -5s-2 -4 -3 -4s-1.833 .333 -2.5 1" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Man Series Co. All Rights Reserved.</p>
-        <p>Formulated for Indian Men · Made in India 🇮🇳</p>
-      </div>
+      <h2 style="font-family: var(--font-display); font-size: 2.5rem; color: var(--charcoal); margin-bottom: 1rem;">Payment Successful!</h2>
+      <p style="color: var(--muted); margin-bottom: 2rem;">Your routine is confirmed. You will receive an email shortly with your order tracking details.</p>
+      <a href="index.html" class="pay-btn" style="display: inline-block; text-decoration: none; width: auto; padding: 1.2rem 3rem;">Return Home</a>
     </div>
-  </footer>
+  </div>
 
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-container">
+      <button class="search-close-btn" id="closeSearchBtn" aria-label="Close Search">&times;</button>
+      <div class="search-box">
+        <svg class="search-icon-inside" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search products, ingredients..." autocomplete="off">
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+
+  <!-- Confetti script -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="app.js?v=1780760815"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const profileStr = localStorage.getItem('skinProfile');
-      if (profileStr) {
-        const profile = JSON.parse(profileStr);
-        const cards = document.querySelectorAll('.series-card');
-        
-        cards.forEach(card => {
-          const name = card.dataset.name;
-          let recommend = false;
-          let reason = '';
-
-          // Basic Personalization Logic
-          if (profile.type === 'Oily' || profile.type === 'Combination' || profile.concern === 'Acne') {
-            if (name.includes('Wash') || name.includes('Serum')) {
-              recommend = true;
-              reason = `Perfect for ${profile.type} Skin`;
-            }
-          } else if (profile.type === 'Dry' || profile.type === 'Sensitive') {
-            if (name.includes('Sunscreen')) {
-              recommend = true;
-              reason = `Hydrating for ${profile.type} Skin`;
-            }
-          } else {
-            // Normal or others
-            if (name.includes('Wash')) {
-              recommend = true;
-              reason = "Daily Essential";
-            }
-          }
-
-          if (recommend) {
-            // Remove any existing badge
-            const existingBadge = card.querySelector('.series-card-badge');
-            if(existingBadge) existingBadge.remove();
-            
-            // Add recommendation badge
-            const badge = document.createElement('div');
-            badge.className = 'series-card-badge';
-            badge.style.background = 'var(--gold)';
-            badge.style.color = 'var(--charcoal)';
-            badge.innerHTML = `✨ Recommended: ${reason}`;
-            card.insertBefore(badge, card.firstChild);
-          }
-        });
+      // Check if logged in, otherwise redirect
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      if (!isLoggedIn) {
+        window.location.href = 'account.html?redirect=cart';
+        return;
       }
+
+      // Auto-fill logged-in user data
+      const userEmail = localStorage.getItem('userEmail');
+      const userPhone = localStorage.getItem('userPhone');
+      const userProfile = JSON.parse(localStorage.getItem('userProfile'));
+      
+      if (userProfile) {
+        if (userProfile.name) document.getElementById('checkoutName').value = userProfile.name;
+        if (userProfile.email) document.getElementById('checkoutEmail').value = userProfile.email;
+        if (userProfile.phone) document.getElementById('checkoutPhone').value = userProfile.phone;
+      } else {
+        if (userEmail) document.getElementById('checkoutEmail').value = userEmail;
+        if (userPhone) document.getElementById('checkoutPhone').value = userPhone;
+      }
+
+      // Handle payment method selection styling
+      const methods = document.querySelectorAll('.payment-method');
+      methods.forEach(method => {
+        method.addEventListener('click', () => {
+          methods.forEach(m => m.classList.remove('active'));
+          method.classList.add('active');
+          method.querySelector('input').checked = true;
+        });
+      });
+
+      // Render checkout summary
+      const localCart = JSON.parse(localStorage.getItem('cart')) || [];
+      const itemsList = document.getElementById('checkoutItemsList');
+      
+      if (localCart.length === 0) {
+        window.location.href = 'cart.html';
+        return;
+      }
+      
+      let subtotal = 0;
+      
+      localCart.forEach(item => {
+        subtotal += item.price * item.qty;
+        
+        let imgSrc = "";
+        if (item.img === "fw")
+          imgSrc = "Images/Face wash/Transparent_Facewash.png?v=3";
+        else if (item.img === "sr")
+          imgSrc = "Images/Serum/Transparent_Serum.png?v=3";
+        else if (item.img === "ss")
+          imgSrc = "Images/Sunscreen/Transparent_Sunscreen.png?v=3";
+        
+        const itemHtml = `
+          <div style="display: flex; gap: 1.25rem; align-items: center; margin-bottom: 1.5rem;">
+            <div style="position: relative; width: 64px; height: 64px; background: var(--warm-white); border: 1px solid var(--border-warm); border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 4px; flex-shrink: 0;">
+              <img src="${imgSrc}" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.06));" alt="${item.name}">
+              <span style="position: absolute; top: -8px; right: -8px; background: var(--charcoal); color: #fff; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">${item.qty}</span>
+            </div>
+            <div style="flex: 1;">
+              <div style="font-weight: 600; color: var(--charcoal); margin-bottom: 0.2rem; font-size: 0.95rem;">${item.name}</div>
+              <div style="font-size: 0.85rem; color: var(--muted);">₹${item.price} each</div>
+            </div>
+            <div style="font-weight: 600; color: var(--charcoal); font-size: 1rem;">₹${item.price * item.qty}</div>
+          </div>
+        `;
+        itemsList.insertAdjacentHTML('beforeend', itemHtml);
+      });
+      
+      const shipping = subtotal >= 499 ? 0 : 50;
+      // GST is typically included, but let's show an estimated breakdown for realism
+      const tax = Math.round(subtotal * 0.18); 
+      const total = subtotal + shipping;
+      
+      document.getElementById('checkoutSubtotal').textContent = `₹${subtotal}`;
+      document.getElementById('checkoutShipping').textContent = shipping === 0 ? 'Free' : `₹${shipping}`;
+      document.getElementById('checkoutTax').textContent = `₹${tax} (Included)`;
+      document.getElementById('checkoutTotal').textContent = `₹${total}`;
     });
+    
+    // Wizard Navigation Logic
+    function goToStep(stepNumber) {
+      document.querySelectorAll('.wizard-step').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.progress-step').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById(`step${stepNumber}`).style.display = 'block';
+      
+      for(let i=1; i<=stepNumber; i++){
+        document.getElementById(`tracker-step${i}`).classList.add('active');
+      }
+
+      // Hide or show Pay Button
+      const payBtn = document.getElementById('payNowBtn');
+      if(stepNumber === 2) {
+        payBtn.style.display = 'block';
+      } else {
+        payBtn.style.display = 'none';
+      }
+      window.scrollTo(0, 0);
+    }
+
+    function applyPromo() {
+      const code = document.getElementById('promoCode').value.trim();
+      if(code.length > 3) {
+        document.getElementById('promoMsg').style.display = 'block';
+        // Mock deduction
+        let currentTotal = parseInt(document.getElementById('checkoutTotal').textContent.replace('₹', ''));
+        if(document.getElementById('promoMsg').dataset.applied !== 'true') {
+           document.getElementById('checkoutTotal').textContent = `₹${currentTotal - 50}`;
+           document.getElementById('promoMsg').dataset.applied = 'true';
+        }
+      }
+    }
+
+    // Initialize Pay button as hidden
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('payNowBtn').style.display = 'none';
+    });
+
+    // Simulate payment process
+    function processPayment() {
+      const btn = document.getElementById('payNowBtn');
+      btn.textContent = 'Processing...';
+      btn.style.opacity = '0.7';
+      btn.style.pointerEvents = 'none';
+      
+      setTimeout(() => {
+        // Update user profile automatically
+        const profile = JSON.parse(localStorage.getItem('userProfile')) || {};
+        profile.name = document.getElementById('checkoutName').value || profile.name;
+        profile.email = document.getElementById('checkoutEmail').value || profile.email;
+        profile.phone = document.getElementById('checkoutPhone').value || profile.phone;
+        localStorage.setItem('userProfile', JSON.stringify(profile));
+
+        // Clear cart and save order to history
+        const localCart = JSON.parse(localStorage.getItem('cart')) || [];
+        const orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
+        const totalText = document.getElementById('checkoutTotal').textContent.replace('₹', '');
+        
+        if (localCart.length > 0) {
+          orderHistory.unshift({
+            id: 'ORD-' + Math.floor(Math.random() * 900000 + 100000),
+            date: new Date().toLocaleDateString(),
+            total: totalText,
+            items: localCart
+          });
+          localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
+        }
+
+        localStorage.removeItem('cart');
+        const evt = new Event('cartUpdated');
+        window.dispatchEvent(evt);
+        
+        // Transform button to success state
+        btn.textContent = 'Payment Successful! ✓';
+        btn.style.background = '#4caf50';
+        btn.style.opacity = '1';
+        btn.style.transform = 'scale(1.05)';
+        
+        // Trigger massive celebration confetti on dedicated canvas
+        if (typeof window.confetti === 'function') {
+          var myCanvas = document.getElementById('confettiCanvas');
+          var myConfetti = window.confetti.create(myCanvas, {
+            resize: true,
+            useWorker: true
+          });
+          
+          var duration = 2000;
+          var end = Date.now() + duration;
+
+          (function frame() {
+            myConfetti({
+              particleCount: 5,
+              angle: 60,
+              spread: 55,
+              origin: { x: 0, y: 0.8 },
+              colors: ['#4caf50', '#a8c5b5', '#1a1d1c', '#f9f8f6']
+            });
+            myConfetti({
+              particleCount: 5,
+              angle: 120,
+              spread: 55,
+              origin: { x: 1, y: 0.8 },
+              colors: ['#4caf50', '#a8c5b5', '#1a1d1c', '#f9f8f6']
+            });
+
+            if (Date.now() < end) {
+              requestAnimationFrame(frame);
+            }
+          }());
+        } else {
+          console.error("Confetti library failed to load");
+        }
+
+        // Redirect to order history after 2.5 seconds
+        setTimeout(() => {
+          window.location.href = 'account.html?tab=orders';
+        }, 2500);
+
+      }, 1500);
+    }
   </script>
 </body>
 </html>
