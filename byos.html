@@ -8,8 +8,8 @@
   <meta name="description"
     content="Build your own skincare set. Handpick from 3 clinical products, get bundle discounts up to 15% off. Custom routine for Indian men.">
   <meta name="author" content="Man Series Co.">
-  <link rel="icon" type="image/png" href="Product Images/fav icon/favicon.png?v=2">
-  <link rel="stylesheet" href="style.css?v=1780760796">
+  <link rel="icon" type="image/png" href="Images/fav icon/favicon.png?v=2">
+  <link rel="stylesheet" href="style.css?v=1780760797">
 </head>
 
 <body>
@@ -21,16 +21,13 @@
   <!-- Announcement Bar -->
   <div class="announcement-bar">
     <div class="announcement-track">
-      <span class="announcement-item">Free Shipping Above ₹499 <span class="sep"></span></span>
-      <span class="announcement-item">Dermatologically Tested Actives <span class="sep"></span></span>
-      <span class="announcement-item">DoIT.C + DPIIT Recognized <span class="sep"></span></span>
       <span class="announcement-item">Formulated for Indian Men <span class="sep"></span></span>
-      <span class="announcement-item">Clinical Transparency — No Fillers <span class="sep"></span></span>
-      <span class="announcement-item">Free Shipping Above ₹499 <span class="sep"></span></span>
-      <span class="announcement-item">Dermatologically Tested Actives <span class="sep"></span></span>
-      <span class="announcement-item">DoIT.C + DPIIT Recognized <span class="sep"></span></span>
+      <span class="announcement-item">Dermatologically Tested <span class="sep"></span></span>
+      <span class="announcement-item">Clinical Transparency <span class="sep"></span></span>
+      <!-- Duplicate for seamless loop -->
       <span class="announcement-item">Formulated for Indian Men <span class="sep"></span></span>
-      <span class="announcement-item">Clinical Transparency — No Fillers <span class="sep"></span></span>
+      <span class="announcement-item">Dermatologically Tested <span class="sep"></span></span>
+      <span class="announcement-item">Clinical Transparency <span class="sep"></span></span>
     </div>
   </div>
 
@@ -50,7 +47,7 @@
           </svg>
         </button>
         <a href="index.html" class="logo" aria-label="Man Series Home">
-          <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
+          <img src="Images/Logo/Wordmark Logo.png?v=2" alt="Man Series" class="logo-img">
         </a>
       </div>
       <nav class="nav-menu" id="navMenu">
@@ -62,6 +59,12 @@
         </ul>
       </nav>
       <div class="nav-actions">
+        <button class="search-trigger" id="searchTrigger" aria-label="Open Search">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
         <a href="account.html" class="account-trigger" aria-label="My Account" style="margin-right: 5px;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -77,7 +80,6 @@
           </svg>
           <span class="cart-count" id="cartBadgeCount">0</span>
         </button>
-        <a href="series.html" class="btn btn-nav hide-on-mobile" style="padding: 0.55rem 1.3rem; font-size: 0.8rem;">Shop Now</a>
       </div>
     </div>
   </header>
@@ -115,7 +117,7 @@
                   stroke="currentColor" stroke-width="3">
                   <polyline points="20 6 9 17 4 12"></polyline>
                 </svg></div>
-              <img src="Product Images/Face wash/Transparent_Facewash.png?v=3" alt="Face Wash" class="byos-tile-img">
+              <img src="Images/Face wash/Transparent_Facewash.png?v=3" alt="Face Wash" class="byos-tile-img">
               <div class="byos-tile-info">
                 <span>Multi-Active Face Wash</span>
                 <strong>₹249</strong>
@@ -126,7 +128,7 @@
                   stroke="currentColor" stroke-width="3">
                   <polyline points="20 6 9 17 4 12"></polyline>
                 </svg></div>
-              <img src="Product Images/Serum/Transparent_Serum.png?v=3" alt="Serum" class="byos-tile-img">
+              <img src="Images/Serum/Transparent_Serum.png?v=3" alt="Serum" class="byos-tile-img">
               <div class="byos-tile-info">
                 <span>Barrier Boost Serum</span>
                 <strong>₹349</strong>
@@ -137,7 +139,7 @@
                   stroke="currentColor" stroke-width="3">
                   <polyline points="20 6 9 17 4 12"></polyline>
                 </svg></div>
-              <img src="Product Images/Sunscreen/Transparent_Sunscreen.png?v=3" alt="Sunscreen" class="byos-tile-img">
+              <img src="Images/Sunscreen/Transparent_Sunscreen.png?v=3" alt="Sunscreen" class="byos-tile-img">
               <div class="byos-tile-info">
                 <span>Ultra-Shield Sunscreen</span>
                 <strong>₹299</strong>
@@ -191,14 +193,19 @@
   <!-- Footer -->
   <footer>
     <div class="container">
-      <div class="footer-statement reveal">
-        <h2>SKIN <span>MINIMALISM.</span></h2>
-        <p>Fewer products. Healthier skin. Formulated for the Indian man who demands transparency, science, and results.
-        </p>
+            <!-- Recognition Strip (Footer Integration) -->
+      <div class="recognition-strip-footer">
+        <h3 class="recognition-title">RECOGNIZED BY</h3>
+        <div class="recognition-logos">
+          <img src="Images/Recognition/gov-login-img.png" alt="DoIT.C" class="recognition-logo-img">
+          <img src="Images/Recognition/istart_logo.png" alt="iStart Rajasthan" class="recognition-logo-img">
+          <img src="Images/Recognition/logo.png" alt="Startup India" class="recognition-logo-img">
+        </div>
       </div>
+
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="Product Images/Logo/Wordmark Logo.png" alt="Man Series" class="footer-logo"
+          <img src="Images/Logo/Wordmark Logo.png?v=2" alt="Man Series" class="footer-logo"
             style="height: 36px; margin-bottom: 1.5rem;">
           <p>Clinically proven, active skincare simplified for Indian Men. Transparent packaging. Honest pricing.</p>
           <div class="footer-manifesto">"WE TRUST MAN"</div>
@@ -274,12 +281,27 @@
       </div>
       <div class="footer-bottom">
         <p>&copy; 2026 Man Series Co. All Rights Reserved.</p>
-        <p>Formulated for Indian Men · Made in India 🇮🇳</p>
+        <p>Formulated for Indian Men · Made in India <span role="img" aria-label="India Flag">🇮🇳</span></p>
       </div>
     </div>
   </footer>
 
-  <script src="app.js?v=1780760815"></script>
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-container">
+      <button class="search-close-btn" id="closeSearchBtn" aria-label="Close Search">&times;</button>
+      <div class="search-box">
+        <svg class="search-icon-inside" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search products, ingredients..." autocomplete="off">
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+
+  <script src="app.js?v=1780760816"></script>
 </body>
 
 </html>
