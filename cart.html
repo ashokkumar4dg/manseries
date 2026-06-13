@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Routine | Man Series</title>
   <link rel="icon" type="image/png" href="Images/fav icon/favicon.png?v=2">
-  <link rel="stylesheet" href="style.css?v=1780760796">
+  <link rel="stylesheet" href="style.css?v=1780760820">
   <style>
     .cart-page-wrapper {
       padding: 10rem 0 6rem;
@@ -66,7 +66,7 @@
           </svg>
         </button>
         <a href="index.html" class="logo" aria-label="Man Series Home">
-          <img src="Images/Logo/Wordmark Logo.png" alt="Man Series" class="logo-img">
+          <img src="Images/Logo/full_logo.png" alt="Man Series" class="logo-img">
         </a>
       </div>
       <nav class="nav-menu" id="navMenu">
@@ -128,9 +128,20 @@
             <input type="text" placeholder="Type coupon code here" />
             <button>Apply</button>
           </div>
-          <!-- Subtotal Row -->
-          <div class="cart-total-row">
-            <span>Subtotal</span>
+          <!-- Detailed Price Breakdown -->
+          <div class="cart-summary-details" id="cartSummaryDetails" style="display: flex; flex-direction: column; gap: 0.6rem; margin-top: 1.2rem; border-top: 1px solid var(--border-warm); padding-top: 1.2rem; margin-bottom: 0.8rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--muted); font-family: var(--font-heading);">
+              <span>Subtotal</span>
+              <span id="cartSubtotalValue">₹0</span>
+            </div>
+            <div id="cartDiscountRow" style="display: none; justify-content: space-between; font-size: 0.9rem; color: #74b891; font-weight: 600; font-family: var(--font-heading);">
+              <span id="cartDiscountLabel">Bundle Discount</span>
+              <span id="cartDiscountValue">−₹0</span>
+            </div>
+          </div>
+          <!-- Final Total Row -->
+          <div class="cart-total-row" style="border-top: 1px solid var(--border-warm); padding-top: 0.8rem;">
+            <span>Total Pay</span>
             <span id="cartTotalValue">₹0</span>
           </div>
           <!-- Checkout Button -->
