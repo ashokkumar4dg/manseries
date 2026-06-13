@@ -566,10 +566,47 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
     if (cartBadgeCount) cartBadgeCount.textContent = totalQty;
 
-    const totalSum = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-    if (cartTotalValue) cartTotalValue.textContent = `₹${totalSum}`;
+    const rawSubtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
-    updateShippingBar(totalSum);
+    // Calculate dynamic bundle discount:
+    // Counts distinct series items in the cart: fw, sr, ss
+    const distinctSeriesIds = new Set(
+      cart
+        .filter(item => ["fw", "sr", "ss"].includes(item.id))
+        .map(item => item.id)
+    );
+
+    const seriesSubtotal = cart
+      .filter(item => ["fw", "sr", "ss"].includes(item.id))
+      .reduce((sum, item) => sum + item.price * item.qty, 0);
+
+    const discountPct = distinctSeriesIds.size === 3 ? 15 : (distinctSeriesIds.size === 2 ? 10 : 0);
+    const discountAmt = Math.round((seriesSubtotal * discountPct) / 100);
+    const finalTotal = rawSubtotal - discountAmt;
+
+    const subtotalEl = document.getElementById("cartSubtotalValue");
+    const discountRowEl = document.getElementById("cartDiscountRow");
+    const discountValEl = document.getElementById("cartDiscountValue");
+    const discountLabelEl = document.getElementById("cartDiscountLabel");
+
+    if (subtotalEl) {
+      subtotalEl.textContent = `₹${rawSubtotal}`;
+    }
+    if (discountRowEl && discountValEl) {
+      if (discountAmt > 0) {
+        discountRowEl.style.display = "flex";
+        discountValEl.textContent = `−₹${discountAmt}`;
+        if (discountLabelEl) {
+          discountLabelEl.textContent = `Bundle Discount (${discountPct}% off)`;
+        }
+      } else {
+        discountRowEl.style.display = "none";
+      }
+    }
+
+    if (cartTotalValue) cartTotalValue.textContent = `₹${finalTotal}`;
+
+    updateShippingBar(finalTotal);
 
     if (cart.length === 0) {
       if (cartItemsContainer)
@@ -585,6 +622,7 @@ document.addEventListener("DOMContentLoaded", () => {
       itemNode.style.animationDelay = `${idx * 80}ms`;
 
       let imgSrc = "";
+      let isGift = item.id === "gift_wrap";
       if (item.img === "fw")
         imgSrc = "Images/Face wash/Transparent_Facewash.png?v=3";
       else if (item.img === "sr")
@@ -592,22 +630,40 @@ document.addEventListener("DOMContentLoaded", () => {
       else if (item.img === "ss")
         imgSrc = "Images/Sunscreen/Transparent_Sunscreen.png?v=3";
 
-      itemNode.innerHTML = `
-        <button class="remove-cart-item-btn" data-id="${item.id}" aria-label="Remove item">&times;</button>
-        <div class="cart-item-img">
-          <img src="${imgSrc}" style="width: 100%; height: 100%; object-fit: contain; transform: scale(1.5); filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));" alt="${item.name}">
-        </div>
-        <div class="cart-item-details">
-          <h4>${item.name}</h4>
-          <p>₹${item.price} · Active Formula</p>
-          <div class="cart-item-quantity">
-            <button class="qty-btn dec-btn" data-id="${item.id}">−</button>
-            <span class="item-qty">${item.qty}</span>
-            <button class="qty-btn inc-btn" data-id="${item.id}">+</button>
+      if (isGift) {
+        itemNode.innerHTML = `
+          <button class="remove-cart-item-btn" data-id="${item.id}" aria-label="Remove item">&times;</button>
+          <div class="cart-item-img" style="background: var(--sage-alpha); font-size: 2rem;">
+            🎁
           </div>
-        </div>
-        <div class="cart-item-price">₹${item.price * item.qty}</div>
-      `;
+          <div class="cart-item-details">
+            <h4>${item.name}</h4>
+            <p>₹${item.price} · Premium Format</p>
+            ${item.note ? `<p style="font-size: 0.78rem; color: var(--muted); font-style: italic; margin-top: 2px;">Note: "${item.note}"</p>` : ''}
+            <div class="cart-item-quantity" style="visibility: hidden;">
+              <span class="item-qty">${item.qty}</span>
+            </div>
+          </div>
+          <div class="cart-item-price">₹${item.price * item.qty}</div>
+        `;
+      } else {
+        itemNode.innerHTML = `
+          <button class="remove-cart-item-btn" data-id="${item.id}" aria-label="Remove item">&times;</button>
+          <div class="cart-item-img">
+            <img src="${imgSrc}" style="width: 100%; height: 100%; object-fit: contain; transform: scale(1.5); filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));" alt="${item.name}">
+          </div>
+          <div class="cart-item-details">
+            <h4>${item.name}</h4>
+            <p>₹${item.price} · Active Formula</p>
+            <div class="cart-item-quantity">
+              <button class="qty-btn dec-btn" data-id="${item.id}">−</button>
+              <span class="item-qty">${item.qty}</span>
+              <button class="qty-btn inc-btn" data-id="${item.id}">+</button>
+            </div>
+          </div>
+          <div class="cart-item-price">₹${item.price * item.qty}</div>
+        `;
+      }
 
       if (cartItemsContainer) cartItemsContainer.appendChild(itemNode);
     });
@@ -1185,6 +1241,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   let byosSelected = new Set();
+  let byosSelectedGift = null;
 
   window.toggleByos = function (tile) {
     const id = tile.dataset.byosId;
@@ -1198,6 +1255,28 @@ document.addEventListener("DOMContentLoaded", () => {
     updateByosSummary();
   };
 
+  window.toggleGift = function (giftId) {
+    const tiles = document.querySelectorAll(".gift-tile");
+    const noteSection = document.getElementById("giftNoteSection");
+
+    if (byosSelectedGift === giftId) {
+      byosSelectedGift = null;
+      tiles.forEach((t) => t.classList.remove("selected"));
+      if (noteSection) noteSection.style.display = "none";
+    } else {
+      byosSelectedGift = giftId;
+      tiles.forEach((t) => {
+        if (t.dataset.giftId === giftId) {
+          t.classList.add("selected");
+        } else {
+          t.classList.remove("selected");
+        }
+      });
+      if (noteSection) noteSection.style.display = "block";
+    }
+    updateByosSummary();
+  };
+
   function updateByosSummary() {
     const emptyState = document.getElementById("byosEmpty");
     const itemsEl = document.getElementById("byosItems");
@@ -1206,6 +1285,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const subtotalEl = document.getElementById("byosSubtotal");
     const discountEl = document.getElementById("byosDiscount");
     const discountLabelEl = document.getElementById("byosDiscountLabel");
+    const giftRowEl = document.getElementById("byosGiftRow");
+    const giftLabelEl = document.getElementById("byosGiftLabel");
+    const giftPriceEl = document.getElementById("byosGiftPrice");
     const totalEl = document.getElementById("byosTotal");
 
     if (!emptyState) return;
@@ -1236,7 +1318,25 @@ document.addEventListener("DOMContentLoaded", () => {
       if (byosSelected.size === 2) discountPct = 10;
       if (byosSelected.size === 3) discountPct = 15;
       const discountAmt = Math.round((subtotal * discountPct) / 100);
-      const total = subtotal - discountAmt;
+
+      let giftFee = 0;
+      if (byosSelectedGift) {
+        giftFee = 49;
+        if (giftRowEl) giftRowEl.style.display = "flex";
+        if (giftLabelEl) {
+          const giftNames = {
+            father: "For Father",
+            brother: "For Brother",
+            husband: "For Husband",
+            friend: "For Friend"
+          };
+          giftLabelEl.textContent = `Gift wrap (${giftNames[byosSelectedGift]})`;
+        }
+      } else {
+        if (giftRowEl) giftRowEl.style.display = "none";
+      }
+
+      const total = subtotal - discountAmt + giftFee;
 
       if (pricingEl) pricingEl.style.display = "";
       if (addBtn) addBtn.style.display = "";
@@ -1255,7 +1355,6 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addByosToCart = function () {
     if (byosSelected.size === 0) return;
 
-    // Vibrate phone slightly for haptic feedback
     if (navigator.vibrate) {
       navigator.vibrate(50);
     }
@@ -1264,6 +1363,35 @@ document.addEventListener("DOMContentLoaded", () => {
       const p = byosProducts[id];
       addToCart({ id: id, name: p.name, price: p.price, img: p.img });
     });
+
+    if (byosSelectedGift) {
+      const giftNames = {
+        father: "For Father",
+        brother: "For Brother",
+        husband: "For Husband",
+        friend: "For Friend"
+      };
+      const noteInput = document.getElementById("giftNote");
+      const note = noteInput ? noteInput.value.trim() : "";
+      
+      // Remove any existing gift wraps in cart first to prevent duplication
+      cart = cart.filter(item => item.id !== "gift_wrap");
+
+      addToCart({
+        id: "gift_wrap",
+        name: `Premium Gift Sleeve (${giftNames[byosSelectedGift]})`,
+        price: 49,
+        img: "gift",
+        note: note
+      });
+
+      byosSelectedGift = null;
+      document.querySelectorAll(".gift-tile").forEach((t) => t.classList.remove("selected"));
+      const noteSection = document.getElementById("giftNoteSection");
+      if (noteSection) noteSection.style.display = "none";
+      if (noteInput) noteInput.value = "";
+    }
+
     byosSelected.clear();
     document
       .querySelectorAll(".byos-product-tile")
