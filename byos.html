@@ -9,7 +9,7 @@
     content="Build your own skincare set. Handpick from 3 clinical products, get bundle discounts up to 15% off. Custom routine for Indian men.">
   <meta name="author" content="Man Series Co.">
   <link rel="icon" type="image/png" href="Images/fav icon/favicon.png?v=2">
-  <link rel="stylesheet" href="style.css?v=1780760797">
+  <link rel="stylesheet" href="style.css?v=1780760820">
 </head>
 
 <body>
@@ -47,7 +47,7 @@
           </svg>
         </button>
         <a href="index.html" class="logo" aria-label="Man Series Home">
-          <img src="Images/Logo/Wordmark Logo.png?v=2" alt="Man Series" class="logo-img">
+          <img src="Images/Logo/full_logo.png" alt="Man Series" class="logo-img">
         </a>
       </div>
       <nav class="nav-menu" id="navMenu">
@@ -95,63 +95,124 @@
         <span class="eyebrow">CUSTOMISE YOUR ROUTINE</span>
         <h2 style="font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 1rem; line-height: 1;">
           <span class="line-normal">Build Your</span>
-          <span class="line-italic">Custom Routine.</span>
-          <span class="line-normal">Save 15%.</span>
+          <span class="line-italic">Custom Set.</span>
+          <span class="line-normal">Save up to 15%.</span>
         </h2>
         <p>Handpick the products that match your skin goals. Get a bundled discount when you choose 2 or more.</p>
       </div>
 
+      <!-- BYOS Image Showcase Banner -->
+      <div class="byos-hero-banner reveal">
+        <div class="byos-banner-content">
+          <span class="byos-banner-eyebrow">THE ULTIMATE SKINSET</span>
+          <h3 class="byos-banner-title">The Perfect Gift for the Men in Your Life</h3>
+          <p class="byos-banner-desc">Create a custom skincare routine, select our premium emotional gift format for your father, brother, or partner, and add a personalized handwritten card. Grooming made thoughtful.</p>
+        </div>
+        <img src="Images/byos.png" alt="Build Your Own Set" class="byos-banner-img">
+      </div>
+
       <div class="byos-wrapper">
-        <!-- Step 1: Select Products -->
-        <div class="byos-step reveal">
-          <div class="byos-step-header">
-            <div class="step-num">01</div>
-            <div>
-              <h3>Choose Your Products</h3>
-              <p>Select the products that target your concerns</p>
+        <!-- Step 1: Select Products & Step 2: Gift Selection in Column 1 -->
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+          <!-- Step 1: Select Products -->
+          <div class="byos-step reveal">
+            <div class="byos-step-header">
+              <div class="step-num">01</div>
+              <div>
+                <h3>Choose Your Products</h3>
+                <p>Select the products that target your concerns</p>
+              </div>
+            </div>
+            <div class="byos-selector">
+              <div class="byos-product-tile" data-byos-id="fw" onclick="toggleByos(this)">
+                <div class="byos-tile-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></div>
+                <img src="Images/Face wash/Transparent_Facewash.png?v=3" alt="Face Wash" class="byos-tile-img">
+                <div class="byos-tile-info">
+                  <span>Multi-Active Face Wash</span>
+                  <strong>₹249</strong>
+                </div>
+              </div>
+              <div class="byos-product-tile" data-byos-id="sr" onclick="toggleByos(this)">
+                <div class="byos-tile-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></div>
+                <img src="Images/Serum/Transparent_Serum.png?v=3" alt="Serum" class="byos-tile-img">
+                <div class="byos-tile-info">
+                  <span>Barrier Boost Serum</span>
+                  <strong>₹349</strong>
+                </div>
+              </div>
+              <div class="byos-product-tile" data-byos-id="ss" onclick="toggleByos(this)">
+                <div class="byos-tile-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg></div>
+                <img src="Images/Sunscreen/Transparent_Sunscreen.png?v=3" alt="Sunscreen" class="byos-tile-img">
+                <div class="byos-tile-info">
+                  <span>Ultra-Shield Sunscreen</span>
+                  <strong>₹299</strong>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="byos-selector">
-            <div class="byos-product-tile" data-byos-id="fw" onclick="toggleByos(this)">
-              <div class="byos-tile-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="3">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg></div>
-              <img src="Images/Face wash/Transparent_Facewash.png?v=3" alt="Face Wash" class="byos-tile-img">
-              <div class="byos-tile-info">
-                <span>Multi-Active Face Wash</span>
-                <strong>₹249</strong>
+
+          <!-- Step 2: Choose Gift Wrap Format -->
+          <div class="byos-step reveal">
+            <div class="byos-step-header">
+              <div class="step-num">02</div>
+              <div>
+                <h3>Add a Gift Format (Optional)</h3>
+                <p>Send it in a premium eco-wrap with an emotional care card printed with your custom note (+ ₹49)</p>
               </div>
             </div>
-            <div class="byos-product-tile" data-byos-id="sr" onclick="toggleByos(this)">
-              <div class="byos-tile-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="3">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg></div>
-              <img src="Images/Serum/Transparent_Serum.png?v=3" alt="Serum" class="byos-tile-img">
-              <div class="byos-tile-info">
-                <span>Barrier Boost Serum</span>
-                <strong>₹349</strong>
+            
+            <div class="gift-selector" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+              <!-- Father -->
+              <div class="gift-tile" data-gift-id="father" onclick="toggleGift('father')" style="border: 1.5px solid var(--border-warm); border-radius: 16px; padding: 1.2rem; cursor: pointer; background: var(--cream); transition: var(--transition-spring); display: flex; flex-direction: column; gap: 0.4rem; position: relative;">
+                <div class="gift-check" style="position: absolute; top: 12px; right: 12px; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--border-warm); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: transparent; background: transparent; transition: var(--transition-smooth);">✓</div>
+                <span style="font-size: 1.2rem;">👴</span>
+                <strong style="font-family: var(--font-heading); font-size: 0.9rem; color: var(--charcoal); margin-top: 0.2rem;">For Father</strong>
+                <span style="font-size: 0.72rem; color: var(--muted); line-height: 1.4;">"To the man who taught me strength, here's to healthy skin." Eco-wrap &amp; card.</span>
+              </div>
+              <!-- Brother -->
+              <div class="gift-tile" data-gift-id="brother" onclick="toggleGift('brother')" style="border: 1.5px solid var(--border-warm); border-radius: 16px; padding: 1.2rem; cursor: pointer; background: var(--cream); transition: var(--transition-spring); display: flex; flex-direction: column; gap: 0.4rem; position: relative;">
+                <div class="gift-check" style="position: absolute; top: 12px; right: 12px; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--border-warm); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: transparent; background: transparent; transition: var(--transition-smooth);">✓</div>
+                <span style="font-size: 1.2rem;">👦</span>
+                <strong style="font-family: var(--font-heading); font-size: 0.9rem; color: var(--charcoal); margin-top: 0.2rem;">For Brother</strong>
+                <span style="font-size: 0.72rem; color: var(--muted); line-height: 1.4;">"Stop stealing my face wash. Here is your own set, champ." Hilarious loving tag.</span>
+              </div>
+              <!-- Husband -->
+              <div class="gift-tile" data-gift-id="husband" onclick="toggleGift('husband')" style="border: 1.5px solid var(--border-warm); border-radius: 16px; padding: 1.2rem; cursor: pointer; background: var(--cream); transition: var(--transition-spring); display: flex; flex-direction: column; gap: 0.4rem; position: relative;">
+                <div class="gift-check" style="position: absolute; top: 12px; right: 12px; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--border-warm); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: transparent; background: transparent; transition: var(--transition-smooth);">✓</div>
+                <span style="font-size: 1.2rem;">🤵</span>
+                <strong style="font-family: var(--font-heading); font-size: 0.9rem; color: var(--charcoal); margin-top: 0.2rem;">For Husband / Partner</strong>
+                <span style="font-size: 0.72rem; color: var(--muted); line-height: 1.4;">"To my forever partner, care you deserve." Luxury gold-embossed sleeve.</span>
+              </div>
+              <!-- Friend -->
+              <div class="gift-tile" data-gift-id="friend" onclick="toggleGift('friend')" style="border: 1.5px solid var(--border-warm); border-radius: 16px; padding: 1.2rem; cursor: pointer; background: var(--cream); transition: var(--transition-spring); display: flex; flex-direction: column; gap: 0.4rem; position: relative;">
+                <div class="gift-check" style="position: absolute; top: 12px; right: 12px; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--border-warm); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: transparent; background: transparent; transition: var(--transition-smooth);">✓</div>
+                <span style="font-size: 1.2rem;">🤝</span>
+                <strong style="font-family: var(--font-heading); font-size: 0.9rem; color: var(--charcoal); margin-top: 0.2rem;">For Friend</strong>
+                <span style="font-size: 0.72rem; color: var(--muted); line-height: 1.4;">"A premium routine for the best buddy who has my back." Matte wrapping.</span>
               </div>
             </div>
-            <div class="byos-product-tile" data-byos-id="ss" onclick="toggleByos(this)">
-              <div class="byos-tile-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="3">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg></div>
-              <img src="Images/Sunscreen/Transparent_Sunscreen.png?v=3" alt="Sunscreen" class="byos-tile-img">
-              <div class="byos-tile-info">
-                <span>Ultra-Shield Sunscreen</span>
-                <strong>₹299</strong>
-              </div>
+
+            <!-- Handwritten Note Box -->
+            <div id="giftNoteSection" style="display: none; animation: fadeUp 0.4s ease-out;">
+              <label for="giftNote" style="font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700; color: var(--charcoal); display: block; margin-bottom: 0.5rem;">Custom Message on Card (Optional)</label>
+              <textarea id="giftNote" rows="2" placeholder="Write a short personal note to print on the care card..." style="width: 100%; border: 1.5px solid var(--border-warm); border-radius: 12px; padding: 0.8rem; font-family: var(--font-body); font-size: 0.85rem; outline: none; transition: border-color 0.3s; background: var(--cream); resize: vertical;"></textarea>
             </div>
           </div>
         </div>
 
-        <!-- Step 2: Summary -->
+        <!-- Step 3: Summary -->
         <div class="byos-summary reveal">
           <div class="byos-step-header">
-            <div class="step-num">02</div>
+            <div class="step-num">03</div>
             <div>
               <h3>Your Custom Set</h3>
               <p>Bundle savings applied automatically</p>
@@ -175,6 +236,10 @@
               <div class="byos-price-row discount">
                 <span id="byosDiscountLabel">Bundle Discount</span>
                 <span id="byosDiscount" class="discount-val">−₹0</span>
+              </div>
+              <div class="byos-price-row" id="byosGiftRow" style="display:none;">
+                <span id="byosGiftLabel">Gift Wrap (For Brother)</span>
+                <span id="byosGiftPrice">₹49</span>
               </div>
               <div class="byos-price-row total">
                 <span>You Pay</span>
@@ -205,7 +270,7 @@
 
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="Images/Logo/Wordmark Logo.png?v=2" alt="Man Series" class="footer-logo"
+          <img src="Images/Logo/full_logo.png" alt="Man Series" class="footer-logo"
             style="height: 36px; margin-bottom: 1.5rem;">
           <p>Clinically proven, active skincare simplified for Indian Men. Transparent packaging. Honest pricing.</p>
           <div class="footer-manifesto">"WE TRUST MAN"</div>
