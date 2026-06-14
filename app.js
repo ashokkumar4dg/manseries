@@ -1629,15 +1629,3 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Testing Tool: Reset Data Button
-const resetBtn = document.createElement("button");
-resetBtn.innerHTML = "?? Reset Data";
-resetBtn.style.cssText =
-  "position:fixed; bottom:20px; left:20px; z-index:9999; background:#b84c30; color:#fff; border:none; padding:8px 12px; border-radius:6px; cursor:pointer; font-size:0.8rem; box-shadow:0 4px 10px rgba(0,0,0,0.2);";
-resetBtn.title = "Clear all cart, login, and profile data to test from scratch";
-resetBtn.onclick = () => {
-  localStorage.clear();
-  sessionStorage.clear();
-  window.location.href = "index.html";
-};
-document.body.appendChild(resetBtn);
