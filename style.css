@@ -247,13 +247,26 @@ a {
    ANNOUNCEMENT BAR (Marquee)
    ══════════════════════════════════════════════════════ */
 .announcement-bar {
-  display: none !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: #cdded4; /* Premium brand-matched light sage green background */
+  z-index: 1000;
+  overflow: hidden;
+  display: flex !important;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease; /* 0.3s slide-down/slide-up transition */
 }
 
 .announcement-track {
   display: flex;
   white-space: nowrap;
-  animation: marquee 40s linear infinite;
+  width: max-content;
+  will-change: transform;
+  animation: marquee 30s linear infinite;
 }
 
 .announcement-track:hover {
@@ -262,32 +275,32 @@ a {
 
 .announcement-item {
   font-family: var(--font-heading);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: var(--sage);
-  padding: 0 3rem;
+  color: #1c1917; /* Dark charcoal text matching brand color */
+  padding-left: 3.5rem;
+  padding-right: 0;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 3.5rem;
 }
 
 .announcement-item .sep {
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: var(--sage);
-  opacity: 0.4;
+  background: #1c1917;
+  opacity: 0.55;
 }
 
 @keyframes marquee {
-  from {
-    transform: translateX(0);
+  0% {
+    transform: translate3d(0, 0, 0);
   }
-
-  to {
-    transform: translateX(-50%);
+  100% {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -874,175 +887,7 @@ a {
   }
 }
 
-
-/* ── Product Showcase ── */
-.hero-visual {
-  position: relative;
-  height: 520px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 1200px;
-}
-
-.bottle-scene {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform-style: preserve-3d;
-  transition: transform 0.12s ease-out;
-}
-
-/* ── 3D Product Placement ── */
-.bottle-mockup {
-  position: absolute;
-  width: 260px;
-  height: 480px;
-  transform-style: preserve-3d;
-  transition: var(--transition-smooth);
-  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.3));
-}
-
-.bottle-mockup:hover {
-  filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.4));
-}
-
-.bottle-mockup.facewash-mock {
-  transform: translate3d(-140px, 40px, -80px) rotateY(-12deg) rotateX(4deg);
-  z-index: 1;
-}
-
-.bottle-mockup.serum-mock {
-  transform: translate3d(0, -60px, 50px) rotateY(0deg) rotateX(-3deg);
-  z-index: 3;
-}
-
-.bottle-mockup.sunscreen-mock {
-  transform: translate3d(140px, 50px, -80px) rotateY(12deg) rotateX(4deg);
-  z-index: 2;
-}
-
-.hero-visual:hover .facewash-mock {
-  transform: translate3d(-180px, 45px, -120px) rotateY(-20deg);
-}
-
-.hero-visual:hover .serum-mock {
-  transform: translate3d(0, -80px, 120px) rotateY(3deg) scale(1.05);
-}
-
-.hero-visual:hover .sunscreen-mock {
-  transform: translate3d(180px, 60px, -120px) rotateY(20deg);
-}
-
-/* ── Floating Ingredient Tags ── */
-.ingredient-tag {
-  position: absolute;
-  background: rgba(168, 197, 181, 0.1);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(168, 197, 181, 0.2);
-  color: var(--sage);
-  font-family: var(--font-heading);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  padding: 0.4rem 0.9rem;
-  border-radius: 100px;
-  white-space: nowrap;
-  z-index: 10;
-  animation: float-tag 3s ease-in-out infinite alternate;
-}
-
-.ingredient-tag:nth-child(1) {
-  top: 12%;
-  left: -5%;
-  animation-delay: 0s;
-}
-
-.ingredient-tag:nth-child(2) {
-  top: 40%;
-  right: -8%;
-  animation-delay: 0.5s;
-}
-
-.ingredient-tag:nth-child(3) {
-  bottom: 18%;
-  left: 5%;
-  animation-delay: 1s;
-}
-
-@keyframes float-tag {
-  from {
-    transform: translateY(-6px);
-  }
-
-  to {
-    transform: translateY(6px);
-  }
-}
-
-
-
-/* ── Scroll Indicator ── */
-.scroll-indicator {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  z-index: 5;
-}
-
-.scroll-indicator span {
-  font-family: var(--font-heading);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: rgba(168, 197, 181, 0.35);
-}
-
-.scroll-indicator .chevron {
-  width: 20px;
-  height: 20px;
-  border-right: 1.5px solid rgba(168, 197, 181, 0.35);
-  border-bottom: 1.5px solid rgba(168, 197, 181, 0.35);
-  transform: rotate(45deg);
-  animation: bounce-chevron 2s ease-in-out infinite;
-}
-
-@keyframes bounce-chevron {
-  0%,
-  100% {
-    transform: translateY(0) rotate(45deg);
-    opacity: 0.3;
-  }
-
-  50% {
-    transform: translateY(8px) rotate(45deg);
-    opacity: 0.8;
-  }
-}
-
-/* ── Product Hero Images ── */
-.product-hero-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 16px;
-  transition: var(--transition-spring);
-  transform: scale(1.4);
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25));
-}
-
-.bottle-mockup:hover .product-hero-img {
-  transform: scale(1.5);
-  filter: drop-shadow(0 30px 55px rgba(0, 0, 0, 0.35));
-}
+/* Unused showcase elements styling removed */
 
 /* ══════════════════════════════════════════════════════
    INGREDIENT MARQUEE STRIP
@@ -2503,9 +2348,7 @@ footer {
     gap: 3rem;
   }
 
-  .hero-visual {
-    height: 420px;
-  }
+
 
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -2712,17 +2555,7 @@ footer {
     justify-content: center;
   }
 
-  .hero-visual {
-    height: 350px;
-  }
 
-  .hero-visual .ingredient-tag {
-    display: none;
-  }
-
-  .scroll-indicator {
-    display: none;
-  }
 
   /* ── Product Grid: vertical single-column on mobile ── */
   .products-grid {
@@ -2767,26 +2600,7 @@ footer {
     font-size: 2.2rem;
   }
 
-  .hero-visual {
-    height: 380px;
-  }
 
-  .bottle-mockup {
-    width: 150px;
-    height: 320px;
-  }
-
-  .bottle-mockup.facewash-mock {
-    transform: translate3d(-70px, 30px, -60px) rotateY(-15deg);
-  }
-
-  .bottle-mockup.serum-mock {
-    transform: translate3d(0, -20px, 40px) rotateY(0deg);
-  }
-
-  .bottle-mockup.sunscreen-mock {
-    transform: translate3d(70px, 40px, -60px) rotateY(15deg);
-  }
 }
 
 @media (max-width: 480px) {
@@ -2798,26 +2612,7 @@ footer {
     font-size: 2.3rem;
   }
 
-  .hero-visual {
-    height: 320px;
-  }
 
-  .bottle-mockup {
-    width: 140px;
-    height: 280px;
-  }
-
-  .bottle-mockup.facewash-mock {
-    transform: translate3d(-50px, 20px, -40px) rotateY(-12deg);
-  }
-
-  .bottle-mockup.serum-mock {
-    transform: translate3d(0, -10px, 30px) rotateY(0deg);
-  }
-
-  .bottle-mockup.sunscreen-mock {
-    transform: translate3d(50px, 30px, -40px) rotateY(12deg);
-  }
 }
 
 /* ══════════════════════════════════════════════════════
@@ -5310,4 +5105,225 @@ footer {
   width: auto !important;
   margin-bottom: 1.5rem !important;
   display: block;
+}
+
+/* =====================================================
+   CLINICAL TRANSPARENCY REPORT INTEGRATION
+   ==================================================== */
+.badge-strip {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.badge-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--warm-white);
+  border: 1px solid var(--border-warm);
+  border-radius: 100px;
+  padding: 0.6rem 1.4rem;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--charcoal);
+  box-shadow: var(--shadow-subtle);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.badge-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.badge-pill svg {
+  color: var(--sage-dark);
+}
+
+.reports-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  margin-top: 3.5rem;
+}
+
+.report-card {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 3.5rem;
+  padding: 3.5rem;
+  align-items: stretch;
+}
+
+.report-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.report-tag {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.tag-clear { color: var(--color-facewash); }
+.tag-treat { color: var(--color-serum); }
+.tag-protect { color: var(--color-sunscreen); }
+
+.report-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  line-height: 1.2;
+  color: var(--charcoal);
+  margin-bottom: 1rem;
+}
+
+.report-desc {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.study-meta-details {
+  display: flex;
+  gap: 2rem;
+  border-top: 1px solid var(--border-warm);
+  padding-top: 1.5rem;
+  margin-top: auto;
+}
+
+.meta-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.meta-detail-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.meta-detail-value {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.report-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.stat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.stat-label {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.stat-pct {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.stat-pct-clear { color: var(--color-facewash); }
+.stat-pct-treat { color: var(--color-serum); }
+.stat-pct-protect { color: var(--color-sunscreen); }
+
+/* Custom Progress Bar styles for transparency report */
+.report-card .science-bar {
+  height: 6px;
+  background: var(--sage-light);
+  border-radius: 10px;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+
+.report-card .science-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  width: 0%;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.report-card .science-bar-fill.fill-clear {
+  background: var(--color-facewash);
+}
+
+.report-card .science-bar-fill.fill-treat {
+  background: var(--color-serum);
+}
+
+.report-card .science-bar-fill.fill-protect {
+  background: var(--color-sunscreen);
+}
+
+/* Responsive Overrides */
+@media (max-width: 991px) {
+  .report-card {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 2.5rem;
+  }
+  
+  .report-title {
+    font-size: 1.8rem;
+  }
+  
+  .study-meta-details {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .badge-strip {
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .badge-pill {
+    padding: 0.5rem 1rem;
+    font-size: 0.78rem;
+  }
+  
+  .report-card {
+    padding: 1.8rem;
+    gap: 2rem;
+  }
+  
+  .study-meta-details {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .stat-label {
+    font-size: 0.85rem;
+  }
 }
