@@ -1,3 +1,14 @@
+// HTML Escaper for XSS Mitigation
+function escapeHTML(str) {
+  if (!str) return "";
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   // ==========================================
   // 1. Cursor Glow — Sage-tinted, smooth follow
@@ -47,26 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ==========================================
-  // 1.5 Magnetic Tags (Micro-Interaction)
-  // ==========================================
-  const magneticTags = document.querySelectorAll(".ingredient-tag");
-  magneticTags.forEach((tag) => {
-    tag.addEventListener("mousemove", (e) => {
-      const rect = tag.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      tag.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.05)`;
-      tag.style.transition = "none";
-      tag.style.zIndex = "20";
-    });
-    tag.addEventListener("mouseleave", () => {
-      tag.style.transform = "";
-      tag.style.transition = "transform 0.5s var(--ease-spring)";
-      tag.style.zIndex = "10";
-    });
-  });
-
-  // ==========================================
   // 2. Navbar — Scroll State + Glass Morphism
   // ==========================================
   const navbar = document.getElementById("navbar");
@@ -80,12 +71,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (navbar) navbar.classList.add("scrolled");
       if (announcementBar) {
         announcementBar.style.transform = "translateY(-100%)";
-        announcementBar.style.transition = "transform 0.4s ease";
+        announcementBar.style.transition = "transform 0.3s ease";
       }
     } else {
       if (navbar) navbar.classList.remove("scrolled");
       if (announcementBar) {
         announcementBar.style.transform = "translateY(0)";
+        announcementBar.style.transition = "transform 0.3s ease";
       }
     }
   });
@@ -137,31 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ==========================================
-  // 5. Interactive 3D Bottle Showcase (Hero)
-  // ==========================================
-  const heroVisual = document.querySelector(".hero-visual");
-  const bottleScene = document.getElementById("bottleScene");
-
-  if (heroVisual && bottleScene) {
-    heroVisual.addEventListener("mousemove", (e) => {
-      const rect = heroVisual.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const rotateX = -(y - centerY) / 12;
-      const rotateY = (x - centerX) / 12;
-
-      bottleScene.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-
-    heroVisual.addEventListener("mouseleave", () => {
-      bottleScene.style.transform = `rotateX(0deg) rotateY(0deg)`;
-    });
-  }
-
-  // ==========================================
   // 6. Counter Animation — Science Section
   // ==========================================
   const scienceCards = document.querySelectorAll(".science-card");
@@ -174,26 +141,28 @@ document.addEventListener("DOMContentLoaded", () => {
             const card = entry.target;
             card.classList.add("visible");
 
-            const counterEl = card.querySelector(".counter-value");
-            const target = parseFloat(card.dataset.countTarget) || 0;
+            // Animate all counter values inside the card
+            const counterEls = card.querySelectorAll(".counter-value");
+            counterEls.forEach((counterEl) => {
+              const target = parseFloat(counterEl.dataset.countTarget) || parseFloat(card.dataset.countTarget) || 0;
+              if (!counterEl.dataset.animated) {
+                counterEl.dataset.animated = "true";
+                animateCounter(counterEl, target, 1500);
+              }
+            });
 
-            if (counterEl && !counterEl.dataset.animated) {
-              counterEl.dataset.animated = "true";
-              animateCounter(counterEl, target, 1500);
-            }
-
-            const barFill = card.querySelector(".science-bar-fill");
-            if (barFill) {
-              const targetWidth =
-                barFill.style.getPropertyValue("--target-width");
+            // Animate all progress bars inside the card
+            const barFills = card.querySelectorAll(".science-bar-fill");
+            barFills.forEach((barFill) => {
+              const targetWidth = barFill.style.getPropertyValue("--target-width");
               setTimeout(() => {
                 barFill.style.width = targetWidth;
               }, 300);
-            }
+            });
           }
         });
       },
-      { threshold: 0.3 },
+      { threshold: 0.2 },
     );
 
     scienceCards.forEach((card) => counterObserver.observe(card));
@@ -389,49 +358,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const concernButtons = document.querySelectorAll(".concern-btn");
     const concernProducts = {
-      ta: {
-        color: "#C8A96E",
-        title: "Tranexamic Acid 3% Formulated",
-        desc: "High-purity clinical active that targets dark spots, melasma, and stubborn post-acne hyperpigmentation.",
+      fw: {
+        color: "#7cc09a",
+        title: "MS Clear Facewash Formulated",
+        desc: "Deeply cleanses excessive oil, pollution buildup, and city tan while protecting the skin's daily moisture barrier.",
         actives: [
-          "Tranexamic Acid 3%",
-          "Alpha Arbutin 2%",
-          "Niacinamide 4%",
-          "Kojic Acid 1%",
-          "Licorice Extract 1.5%",
-          "Hyaluronic Acid 1%",
-          "Kombucha Ferment",
-          "Glutathione 0.5%",
-        ],
-      },
-      aa: {
-        color: "#89B5C0",
-        title: "Alpha Arbutin 2% Synthesized",
-        desc: "A potent skin brightener that deactivates tyrosinase activity to reduce melanin and even skin tone.",
-        actives: [
-          "Alpha Arbutin 2%",
           "Salicylic Acid 2%",
-          "Niacinamide 3%",
-          "Vitamin C 10%",
-          "Ferulic Acid 0.5%",
-          "Centella Asiatica",
-          "Aloe Vera Hydrolat",
-          "Vitamin E 1%",
+          "Glycolic Acid 1%",
+          "Chamomile Extract",
+          "Green Tea Extract",
+          "Niacinamide 1%",
+          "Panthenol 2%",
+          "Allantoin 0.5%",
+          "Glycerin 5%",
         ],
       },
-      na: {
-        color: "#7CC09A",
-        title: "Niacinamide 4% Activated",
-        desc: "Medical-grade Vitamin B3 that regulates sebum, shrinks enlarged pores, and repairs lipid barrier.",
+      sr: {
+        color: "#89b5c0",
+        title: "MS Treat Serum Activated",
+        desc: "High-performance treatment targets acne scars, hyperpigmentation, and controls excess sebum oil balance.",
         actives: [
           "Niacinamide 4%",
           "Zinc PCA 1%",
+          "Tranexamic Acid 3%",
+          "Alpha Arbutin 2%",
           "Ceramide NP 0.2%",
-          "Panthenol 2%",
-          "Phytosphingosine 0.1%",
-          "Green Tea Extract",
+          "Centella Asiatica",
           "Squalane 2%",
-          "Allantoin 0.5%",
+          "Hyaluronic Acid 1%",
+        ],
+      },
+      ss: {
+        color: "#ccab82",
+        title: "MS Protect Sunscreen Synthesized",
+        desc: "Broad-spectrum SPF 50+ PA++++ matte protection designed to shield against intense UV exposure and sweat.",
+        actives: [
+          "SPF 50+ Protection",
+          "PA++++ UVA Defense",
+          "Niacinamide 2%",
+          "Ceramide AP 0.1%",
+          "Aloe Vera Hydrolat",
+          "Vitamin E 1%",
+          "Hyaluronic Acid 1%",
+          "Adenosine 0.1%",
         ],
       },
     };
@@ -639,7 +608,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="cart-item-details">
             <h4>${item.name}</h4>
             <p>₹${item.price} · Premium Format</p>
-            ${item.note ? `<p style="font-size: 0.78rem; color: var(--muted); font-style: italic; margin-top: 2px;">Note: "${item.note}"</p>` : ''}
+            ${item.note ? `<p style="font-size: 0.78rem; color: var(--muted); font-style: italic; margin-top: 2px;">Note: "${escapeHTML(item.note)}"</p>` : ''}
             <div class="cart-item-quantity" style="visibility: hidden;">
               <span class="item-qty">${item.qty}</span>
             </div>
@@ -1220,8 +1189,8 @@ document.addEventListener("DOMContentLoaded", () => {
       cards.forEach((card) => {
         const price = parseInt(card.dataset.price);
         let show = true;
-        if (val === "under300" && price >= 300) show = false;
-        if (val === "300to400" && (price < 300 || price > 400)) show = false;
+        if (val === "under400" && price >= 400) show = false;
+        if (val === "over400" && price < 400) show = false;
         card.style.display = show ? "" : "none";
         if (show) count++;
       });
@@ -1235,9 +1204,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // 10. B.Y.O.S. — Build Your Own Set Logic
   // ==========================================
   const byosProducts = {
-    fw: { name: "Multi-Active Face Wash", price: 249, img: "fw" },
-    sr: { name: "Barrier Boost Serum", price: 349, img: "sr" },
-    ss: { name: "Ultra-Shield Sunscreen", price: 299, img: "ss" },
+    fw: { name: "Multi Active MS Clear", price: 349, img: "fw" },
+    sr: { name: "Multi Active MS Treat", price: 599, img: "sr" },
+    ss: { name: "Multi Active MS Protect", price: 549, img: "ss" },
   };
 
   let byosSelected = new Set();
@@ -1428,40 +1397,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchIndex = [
     {
       id: "fw",
-      name: "Multi-Active Face Wash",
+      name: "Multi Active MS Clear",
       category: "Cleanse",
-      price: "₹249",
+      price: "₹349",
       desc: "Deep-cleansing BHA formula that removes oil, tan, and pollution buildup.",
       image: "fw",
       url: "series.html",
-      keywords: ["face wash", "cleanser", "bha", "salicylic acid", "2%", "glycolic", "tan", "oil", "acne", "chamomile", "cleanse"]
+      keywords: ["face wash", "cleanser", "bha", "salicylic acid", "2%", "glycolic", "tan", "oil", "acne", "chamomile", "cleanse", "ms clear", "clear"]
     },
     {
       id: "sr",
-      name: "Barrier Boost Serum",
+      name: "Multi Active MS Treat",
       category: "Treat",
-      price: "₹349",
+      price: "₹599",
       desc: "Potent actives that target acne scars, regulate sebum and rapidly restore your skin's moisture barrier.",
       image: "sr",
       url: "series.html",
-      keywords: ["serum", "barrier boost", "niacinamide", "4%", "zinc", "tranexamic acid", "3%", "alpha arbutin", "2%", "acne scars", "hyperpigmentation", "pores", "hydration", "treat"]
+      keywords: ["serum", "barrier boost", "niacinamide", "4%", "zinc", "tranexamic acid", "3%", "alpha arbutin", "2%", "acne scars", "hyperpigmentation", "pores", "hydration", "treat", "ms treat", "treat"]
     },
     {
       id: "ss",
-      name: "Ultra-Shield Matte Sunscreen",
+      name: "Multi Active MS Protect",
       category: "Protect",
-      price: "₹299",
+      price: "₹549",
       desc: "Broad-spectrum UVA/UVB matte sunscreen engineered for Indian heat and humidity.",
       image: "ss",
       url: "series.html",
-      keywords: ["sunscreen", "sun shield", "spf", "spf 50", "uva", "uvb", "matte", "sun protect", "sun block", "protect"]
+      keywords: ["sunscreen", "sun shield", "spf", "spf 50", "uva", "uvb", "matte", "sun protect", "sun block", "protect", "ms protect", "protect"]
     },
     {
       id: "ta",
       name: "Tranexamic Acid 3%",
       category: "Clinical Active",
       price: "",
-      desc: "High-purity clinical active that targets dark spots, melasma, and hyperpigmentation. Found in Barrier Boost Serum.",
+      desc: "High-purity clinical active that targets dark spots, melasma, and hyperpigmentation. Found in MS Treat Serum.",
       image: "sr",
       url: "index.html#reactor",
       keywords: ["tranexamic", "ta", "dark spots", "melasma", "hyperpigmentation", "pigmentation", "3%"]
@@ -1471,7 +1440,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "Alpha Arbutin 2%",
       category: "Clinical Active",
       price: "",
-      desc: "Potent skin brightener that reduces melanin production and evens out discoloration. Found in Barrier Boost Serum.",
+      desc: "Potent skin brightener that reduces melanin production and evens out discoloration. Found in MS Treat Serum.",
       image: "sr",
       url: "index.html#reactor",
       keywords: ["alpha arbutin", "arbutin", "brightening", "discoloration", "melanin", "2%"]
@@ -1481,7 +1450,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "Niacinamide 4%",
       category: "Clinical Active",
       price: "",
-      desc: "Vitamin B3 active that regulates sebum, shrinks pores, and repairs lipid barrier. Found in Face Wash, Serum, & Sunscreen.",
+      desc: "Vitamin B3 active that regulates sebum, shrinks pores, and repairs lipid barrier. Found in MS Clear Facewash, MS Treat Serum, & MS Protect Sunscreen.",
       image: "sr",
       url: "index.html#reactor",
       keywords: ["niacinamide", "vitamin b3", "sebum", "pores", "barrier repair", "4%"]
@@ -1574,7 +1543,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (matches.length === 0) {
       searchResults.innerHTML = `
         <div class="no-results-msg">
-          No matches found for "<strong>${query}</strong>"<br>
+          No matches found for "<strong>${escapeHTML(query)}</strong>"<br>
           <span style="font-size:0.85rem; color:var(--muted);">Try checking spelling or use more general keywords.</span>
         </div>
       `;
@@ -1611,7 +1580,11 @@ document.addEventListener("DOMContentLoaded", () => {
             toggleSearch(false);
             el.scrollIntoView({ behavior: "smooth" });
             if (hash === "reactor") {
-              const btn = document.querySelector(`.concern-btn[data-acid="${item.id}"]`);
+              let targetId = item.id;
+              if (targetId === "ta" || targetId === "aa" || targetId === "na") {
+                targetId = "sr";
+              }
+              const btn = document.querySelector(`.concern-btn[data-acid="${targetId}"]`);
               if (btn) btn.click();
             }
           }
